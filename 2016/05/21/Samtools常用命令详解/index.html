@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Stasyi, Bioinformation" />
+  <meta name="keywords" content="软件,bioinformation," />
 
 
 
@@ -86,15 +86,19 @@
 
 
 
-<meta name="description" content="自古求真皆寂寞，唯挑心灯伴夜霭">
-<meta property="og:type" content="website">
-<meta property="og:title" content="寂寞先生">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="samtools的说明文档：http://samtools.sourceforge.net/samtools.shtmlsamtools是一个用于操作sam和bam文件的工具合集。包含有许多命令。以下是常用命令的介绍
+1. viewview命令的主要功能是：将sam文件转换成bam文件；然后对bam文件进行各种操作，比如数据的排序(不属于本命令的功能)和提取(这些操作是对bam文件进行的，因而当输">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Samtools常用命令详解">
+<meta property="og:url" content="http://yoursite.com/2016/05/21/Samtools常用命令详解/index.html">
 <meta property="og:site_name" content="寂寞先生">
-<meta property="og:description" content="自古求真皆寂寞，唯挑心灯伴夜霭">
+<meta property="og:description" content="samtools的说明文档：http://samtools.sourceforge.net/samtools.shtmlsamtools是一个用于操作sam和bam文件的工具合集。包含有许多命令。以下是常用命令的介绍
+1. viewview命令的主要功能是：将sam文件转换成bam文件；然后对bam文件进行各种操作，比如数据的排序(不属于本命令的功能)和提取(这些操作是对bam文件进行的，因而当输">
+<meta property="og:updated_time" content="2016-05-21T04:52:20.925Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寂寞先生">
-<meta name="twitter:description" content="自古求真皆寂寞，唯挑心灯伴夜霭">
+<meta name="twitter:title" content="Samtools常用命令详解">
+<meta name="twitter:description" content="samtools的说明文档：http://samtools.sourceforge.net/samtools.shtmlsamtools是一个用于操作sam和bam文件的工具合集。包含有许多命令。以下是常用命令的介绍
+1. viewview命令的主要功能是：将sam文件转换成bam文件；然后对bam文件进行各种操作，比如数据的排序(不属于本命令的功能)和提取(这些操作是对bam文件进行的，因而当输">
 
 
 
@@ -112,9 +116,7 @@
   };
 </script>
 
-  <title>
-	Stasyi, Bioinformation - 寂寞先生 - 自古求真皆寂寞，唯挑心灯伴夜霭
-</title>
+  <title> Samtools常用命令详解 | 寂寞先生 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -135,9 +137,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 	
 	<!----------- add Fork me on Github ------------>
@@ -260,9 +260,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -282,10 +282,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2016/05/21/Samtools常用命令详解/" itemprop="url">
-                  Samtools常用命令详解
-                </a>
+                Samtools常用命令详解
               
             
           </h1>
@@ -302,6 +299,8 @@
             </time>
           </span>
 		  
+		
+			<span id="busuanzi_container_page_pv">&nbsp;&nbsp;|&nbsp;&nbsp;阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
 		
 
           
@@ -327,9 +326,7 @@
       
 
       
-        
-          
-            <p>samtools的说明文档：<a href="http://samtools.sourceforge.net/samtools.shtml" target="_blank" rel="external">http://samtools.sourceforge.net/samtools.shtml</a><br>samtools是一个用于操作sam和bam文件的工具合集。包含有许多命令。以下是常用命令的介绍</p>
+        <p>samtools的说明文档：<a href="http://samtools.sourceforge.net/samtools.shtml" target="_blank" rel="external">http://samtools.sourceforge.net/samtools.shtml</a><br>samtools是一个用于操作sam和bam文件的工具合集。包含有许多命令。以下是常用命令的介绍</p>
 <h2 id="1-view"><a href="#1-view" class="headerlink" title="1. view"></a>1. view</h2><p>view命令的主要功能是：将sam文件转换成bam文件；然后对bam文件进行各种操作，比如数据的排序(不属于本命令的功能)和提取(这些操作是对bam文件进行的，因而当输入为sam文件的时候，不能进行该操作)；最后将排序或提取得到的数据输出为bam或sam（默认的）格式。</p>
 <p>bam文件优点：bam文件为二进制文件，占用的磁盘空间比sam文本文件小；利用bam二进制文件的运算速度快。</p>
 <p>view命令中，对sam文件头部的输入(-t或-T）和输出(-h)是单独的一些参数来控制的</p>
@@ -366,36 +363,69 @@
 <p>使用bcftools得到variant calling结果后。需要对结果再次进行过滤。主要依据比对结果中第8列信息。其中的 DP4 一行尤为重要，提供了4个数据：1 比对结果和正链一致的reads数、2 比对结果和负链一致的reads数、3 比对结果在正链的variant上的reads数、4 比对结果在负链的variant上的reads数。可以设定 （value3 + value4）大于某一阈值，才算是variant。比如：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ perl -ne '<span class="keyword">print</span> <span class="variable">$_</span> <span class="keyword">if</span> /DP4=(\<span class="keyword">d</span>+),(\<span class="keyword">d</span>+),(\<span class="keyword">d</span>+),(\<span class="keyword">d</span>+)/ &amp;&amp; (<span class="variable">$3</span>+<span class="variable">$4</span>)&gt;=10 &amp;&amp; (<span class="variable">$3</span>+<span class="variable">$4</span>)/(<span class="variable">$1</span>+<span class="variable">$2</span>+<span class="variable">$3</span>+<span class="variable">$4</span>)&gt;=0.8' snp_indel.vcf &gt; snp_indel.final.vcf</span><br></pre></td></tr></table></figure></p>
 <h2 id="13-samtools-rmdup"><a href="#13-samtools-rmdup" class="headerlink" title="13. samtools rmdup"></a>13. samtools rmdup</h2><p>NGS上机测序前需要进行PCR一步，使一个模板扩增出一簇，从而在上机测序的时候表现出为1个点，即一个reads。若一个模板扩增出了多簇，结果得到了多个reads，这些reads的坐标(coordinates)是相近的。在进行了reads比对后需要将这些由PCR duplicates获得的reads去掉，并只保留最高比对质量的read。使用rmdup命令即可完成.<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Usage:  samtools rmdup [-sS]  </span><br><span class="line">-<span class="ruby">s 对single-<span class="keyword">end</span> reads。默认情况下，只对paired-<span class="keyword">end</span> reads</span><br><span class="line"></span>-<span class="ruby">S 将Paired-<span class="keyword">end</span> reads作为single-<span class="keyword">end</span> reads处理。</span><br><span class="line"></span></span><br><span class="line">$ samtools input.sorted.bam output.bam</span><br></pre></td></tr></table></figure></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/软件/" rel="tag">#软件</a>
+          
+            <a href="/tags/bioinformation/" rel="tag">#bioinformation</a>
+          
+        </div>
       
 
       
+
       
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -403,6 +433,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -422,8 +456,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -502,6 +545,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-view"><span class="nav-number">1.</span> <span class="nav-text">1. view</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-sort"><span class="nav-number">2.</span> <span class="nav-text">2. sort</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-merge"><span class="nav-number">3.</span> <span class="nav-text">3. merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-index"><span class="nav-number">4.</span> <span class="nav-text">4. index</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-faidx"><span class="nav-number">5.</span> <span class="nav-text">5. faidx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-tview"><span class="nav-number">6.</span> <span class="nav-text">6. tview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-flagstat"><span class="nav-number">7.</span> <span class="nav-text">7. flagstat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-depth"><span class="nav-number">8.</span> <span class="nav-text">8. depth</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-其他有用的命令"><span class="nav-number">9.</span> <span class="nav-text">9. 其他有用的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-将bam文件转换为fastq文件"><span class="nav-number">10.</span> <span class="nav-text">10. 将bam文件转换为fastq文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-mpileup"><span class="nav-number">11.</span> <span class="nav-text">11. mpileup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-使用bcftools"><span class="nav-number">12.</span> <span class="nav-text">12. 使用bcftools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-samtools-rmdup"><span class="nav-number">13.</span> <span class="nav-text">13. samtools rmdup</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -626,6 +680,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

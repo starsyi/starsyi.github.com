@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2016-05-21T04:52:20.925Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2016-05-21T04:37:30.302Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2016-05-21T04:37:14.087Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2016-05-21T04:17:32.561Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/diary/index.html</loc>
     
     <lastmod>2016-05-20T15:52:09.350Z</lastmod>
@@ -12,13 +40,6 @@
     <loc>http://yoursite.com/software/index.html</loc>
     
     <lastmod>2016-05-20T15:51:28.371Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/05/20/hello-world/</loc>
-    
-    <lastmod>2016-05-20T14:09:37.324Z</lastmod>
     
   </url>
   
