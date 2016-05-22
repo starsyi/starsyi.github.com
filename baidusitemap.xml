@@ -3,38 +3,39 @@
 
 
     
-    
-    
-    
-    
-    
   <url>
     <loc>http://yoursite.com/2016/05/22/Jellyfish%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2016-05-22T07:11:18.028Z</lastmod>
+    <lastmod>2016-05-22T08:50:02.736Z</lastmod>
     <data>
         <display>
         <title>Jellyfish详解</title>
         <pubTime>2016-05-22T07:10:07.000Z</pubTime>
         
+        <tag>software</tag>
+         
+        <tag>bioinformatics</tag>
+         
          
            
+             
+              <breadCrumb title="software" url="http://yoursite.com/categories/%E8%BD%AF%E4%BB%B6/"/>
+          
         </display>
     </data>
     </url>
 
     
-    
   <url>
     <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2016-05-21T04:52:20.925Z</lastmod>
+    <lastmod>2016-05-22T08:49:57.052Z</lastmod>
     <data>
         <display>
         <title>Samtools常用命令详解</title>
         <pubTime>2016-05-21T04:27:34.000Z</pubTime>
         
-        <tag>软件</tag>
+        <tag>bioinformatics</tag>
          
-        <tag>bioinformation</tag>
+        <tag>软件</tag>
          
          
            
@@ -42,4 +43,10 @@
     </data>
     </url>
 
+    
+    
+    
+    
+    
+    
 </urlset>

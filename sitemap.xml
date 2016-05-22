@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/05/22/Jellyfish%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2016-05-22T08:50:02.736Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
+    
+    <lastmod>2016-05-22T08:49:57.052Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2016-05-22T08:03:20.442Z</lastmod>
@@ -37,23 +51,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/2016/05/22/Jellyfish%E8%AF%A6%E8%A7%A3/</loc>
-    
-    <lastmod>2016-05-22T07:11:18.028Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/search/index.html</loc>
     
     <lastmod>2016-05-21T15:18:52.505Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
-    
-    <lastmod>2016-05-21T04:52:20.925Z</lastmod>
     
   </url>
   
