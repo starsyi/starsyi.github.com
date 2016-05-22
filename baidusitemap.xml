@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/05/22/Jellyfish%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2016-05-22T07:11:18.028Z</lastmod>
+    <data>
+        <display>
+        <title>Jellyfish详解</title>
+        <pubTime>2016-05-22T07:10:07.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
     
     
   <url>
@@ -11,9 +27,9 @@
         <title>Samtools常用命令详解</title>
         <pubTime>2016-05-21T04:27:34.000Z</pubTime>
         
-        <tag>软件 </tag>
+        <tag>软件</tag>
          
-        <tag>bioinformation </tag>
+        <tag>bioinformation</tag>
          
          
            

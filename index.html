@@ -313,6 +313,117 @@
             
               
                 
+                <a class="post-title-link" href="/2016/05/22/Jellyfish详解/" itemprop="url">
+                  Jellyfish详解
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-22T15:10:07+08:00" content="2016-05-22">
+              2016-05-22
+            </time>
+          </span>
+		  
+		
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一、Jellyfish简介"><a href="#一、Jellyfish简介" class="headerlink" title="一、Jellyfish简介"></a>一、Jellyfish简介</h2><p><a href="http://www.cbcb.umd.edu/software/jellyfish/" target="_blank" rel="external">JELLYFISH</a>是<a href="http://www.cbcb.umd.edu/" target="_blank" rel="external">CBCB(Center for Bioinformatics and Computational Biology)</a>的Guillaume Marçais 和 <a href="http://www.cs.cmu.edu/~ckingsf/" target="_blank" rel="external">Carl Kingsford</a> 研发的一款计数 DNA 的 k-mers 的软件。该软件运用 Hash 表来存储数据，同时能多线程运行，速度快，内存消耗小。该软件只能运行在64位的Linux系统下。其<a href="http://bioinformatics.oxfordjournals.org/content/27/6/764" target="_blank" rel="external">文章</a>于2011年发表在杂志 <a href="http://bioinformatics.oxfordjournals.org/" target="_blank" rel="external">Bioinformatics</a> 上。</p>
+<h2 id="二、Jellyfish安装"><a href="#二、Jellyfish安装" class="headerlink" title="二、Jellyfish安装"></a>二、Jellyfish安装</h2><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>wget <span class="symbol">http:</span>/<span class="regexp">/www.cbcb.umd.edu/software</span><span class="regexp">/jellyfish/jellyfish</span>-<span class="number">1.1</span>.<span class="number">10</span>.tar.gz</span><br><span class="line"><span class="variable">$ </span>tar zxvf jellyfish-<span class="number">1.1</span>.<span class="number">10</span>.tar.gz</span><br><span class="line"><span class="variable">$ </span>mkdir jellyfish</span><br><span class="line"><span class="variable">$ </span>cd jellyfish-<span class="number">1.1</span>.<span class="number">10</span></span><br><span class="line"><span class="variable">$ </span>./configure --prefix=Your/Path/to/jellyfish</span><br><span class="line">如果安装在当前目录中，会报错。</span><br><span class="line"><span class="variable">$ </span>make -j <span class="number">8</span></span><br><span class="line"><span class="variable">$ </span>make install</span><br></pre></td></tr></table></figure>
+<h2 id="三、Jellyfish的使用"><a href="#三、Jellyfish的使用" class="headerlink" title="三、Jellyfish的使用"></a>三、Jellyfish的使用</h2><h3 id="1-jellyfish的使用方法"><a href="#1-jellyfish的使用方法" class="headerlink" title="1. jellyfish的使用方法"></a>1. jellyfish的使用方法</h3><p>jellyfish的功能有：kmer计数；融合二进制的Hash结果；统计Hash结果；通过Hash结果来画直方图；将Hash结果输出成文本格式；查询指定k-mer的数目。<br><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">jellyfish </span><span class="built_in">count</span> [-o <span class="keyword">prefix] </span>[-m merlength] [-t threads] [-s hashsize] [--<span class="keyword">both-strands] </span>fasta [fasta ...]</span><br><span class="line">$ <span class="keyword">jellyfish </span>merge hash1 hash2 ...</span><br><span class="line">$ <span class="keyword">jellyfish </span>dump hash</span><br><span class="line">$ <span class="keyword">jellyfish </span>stats hash</span><br><span class="line">$ <span class="keyword">jellyfish </span>histo [-h high] [-l low] [-i increment] hash</span><br><span class="line">$ <span class="keyword">jellyfish </span>query hash</span><br><span class="line">$ <span class="keyword">jellyfish </span>cite</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-k-mer的计数"><a href="#2-k-mer的计数" class="headerlink" title="2. k-mer的计数"></a>2. k-mer的计数</h3><p>使用count的命令来执行计数功能，例子：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ jellyfish count -m <span class="number">16</span> -s <span class="number">100</span>M -t <span class="number">24</span> -o mer_counts -c <span class="number">7</span> <span class="selector-tag">input</span><span class="selector-class">.fastq</span></span><br><span class="line">使用fastq文件在默认参数上和fasta文件没有区别。生成的hash结果为二进制文件。</span><br></pre></td></tr></table></figure></p>
+<p>常用参数：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">m <span class="params">| --mer-len=&lt;num&gt;</span><br><span class="line"></span></span>    使用的k-mer的长度。如果基因组大小为G，则k-mer长度选择为: k ~= log(200G)</span><br><span class="line"><span class="comment">/log(4)。</span></span><br><span class="line">-<span class="ruby"><span class="params">s |</span> --size=&lt;num&gt;</span><br><span class="line"></span>    Hash 的大小。最好设置的值大于总的独特的(distinct)k-mer数,这样生成的文件只</span><br><span class="line">有一个。若该值不够大，则会生成多个hash文件，以数字区分文件名。如果基因组大小为G，每</span><br><span class="line">个reads有一个错误，总共有n条reads，则该值可以设置为『(G + k*n)/0.8』。该值识别 </span><br><span class="line">M 和 G。</span><br><span class="line">-<span class="ruby">t <span class="params">| --threads=&lt;num&gt;  default: 1</span><br><span class="line"></span></span>    使用的CPU线程数</span><br><span class="line">-<span class="ruby"><span class="params">o |</span> --output=&lt;string&gt;  <span class="symbol">default:</span> mer_counts</span><br><span class="line"></span>    输出的结果文件前缀</span><br><span class="line">-<span class="ruby">c <span class="params">| --counter-len=&lt;num&gt;  default:7</span><br><span class="line"></span></span>    k-mer的计数结果所占的比特数,默认支持的最大数字是2^7=128。对于基因组测序覆盖</span><br><span class="line">度为N，则要使设置的该值要大于N。该值越大，消耗内存越大。例如，如果基因组的覆盖度为10X，那么就要选择4(-c 4) 的counter长度，由于2^4 &gt; 10。</span><br><span class="line">-<span class="ruby"><span class="params">out-counter-len=&lt;num&gt;  default:4</span><br><span class="line"></span></span>    输出的二进制hash文件中的计数结果所占的字节数,一个字节是8比特。则默认支持的最大</span><br><span class="line">数字是2^32=4.3G</span><br><span class="line">-<span class="ruby"><span class="params">C |</span> --both-strand  <span class="symbol">default:</span> <span class="literal">false</span></span><br><span class="line"></span>    对正义链和反义链都进行计数</span><br><span class="line">-<span class="ruby">q <span class="params">| --quake  default: <span class="literal">false</span></span><br><span class="line"></span></span>    quake兼容模式</span><br><span class="line">-<span class="ruby"><span class="params">-quality-start=&lt;num&gt;  default: 64</span><br><span class="line"></span></span>    起始碱基质量的ASCII值，默认为PHRED64</span><br><span class="line">-<span class="ruby"><span class="params">-min-quality=&lt;num&gt;  default: 0</span><br><span class="line"></span></span>    支持的最小的碱基质量值，低于此值的碱基将由N代替</span><br><span class="line">-<span class="ruby"><span class="params">L |</span> --lower-count=&lt;num&gt;</span><br><span class="line"></span>    不输出数目低于此值的k-mer</span><br><span class="line">-<span class="ruby">U <span class="params">| --upper-count=&lt;num&gt;</span><br><span class="line"></span></span>    不输出数目高于此值的k-mer</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-融合二进制的输出结果"><a href="#3-融合二进制的输出结果" class="headerlink" title="3. 融合二进制的输出结果"></a>3. 融合二进制的输出结果</h3><p>上一步的输出结果为二进制文件，可能输出了多个hash文件，因此需要将这些hash文件合并成一个文件，此时用到 merge 命令。使用方法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jellyfish merge -o mer_counts_merged.jf <span class="built_in">hash</span>1 <span class="built_in">hash</span>2 ...</span><br></pre></td></tr></table></figure></p>
+<p>常用参数：<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">o</span> | --output=<span class="symbol">&lt;string&gt;</span>  defaul<span class="variable">t:</span> mer_counts_merged.jf</span><br><span class="line">    输出的结果文件</span><br><span class="line">--out-counter-<span class="built_in">len</span>=<span class="symbol">&lt;num&gt;</span>  defaul<span class="variable">t:</span> <span class="number">4</span></span><br><span class="line">输出的二进制hash文件中的计数结果所占的字节数,一个字节是<span class="number">8</span>比特。则默认支持的最大数字</span><br><span class="line">是<span class="number">2</span>^<span class="number">32</span>=<span class="number">4.3</span>G</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-对hash结果进行统计"><a href="#4-对hash结果进行统计" class="headerlink" title="4. 对hash结果进行统计"></a>4. 对hash结果进行统计</h3><p>k-mer的结果以hash的二进制文件结果给出，需要统计出k-mer总数，特异的k-mer数目，只出现过一次的kmer数，出现了最多的k-mer的数目等信息。以stats命令来运行。使用方法：<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ jellyfish stats hash</span><br><span class="line">示例结果为：</span><br><span class="line"><span class="symbol">Unique:</span>    <span class="number">32355544</span>    <span class="meta">#只出现过一次的k-mer的数目</span></span><br><span class="line"><span class="symbol">Distinct:</span>  <span class="number">88414020</span>    <span class="meta">#特异性的k-mer数目，包含上一个的数据</span></span><br><span class="line"><span class="symbol">Total:</span>     <span class="number">432232807</span>   <span class="meta">#总的k-mer数目</span></span><br><span class="line"><span class="symbol">Max_count:</span> <span class="number">85348</span>       <span class="meta">#同一个k-mer出现的最多的数目</span></span><br></pre></td></tr></table></figure></p>
+<p>常用参数：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">L <span class="params">| --lower-count=&lt;num&gt;</span><br><span class="line"></span></span>    不统计数目低于此值的k-mer</span><br><span class="line">-<span class="ruby"><span class="params">U |</span> --upper-count=&lt;num&gt;</span><br><span class="line"></span>    不统计数目高于此值的k-mer</span><br></pre></td></tr></table></figure></p>
+<h3 id="5-通过Hash结果来画直方图"><a href="#5-通过Hash结果来画直方图" class="headerlink" title="5. 通过Hash结果来画直方图"></a>5. 通过Hash结果来画直方图</h3><p>对k-mer的计数结果有个直观的认识，则需要统计出现了x(x=1,2,3…)次的kmer的数目y,以x，y为横纵坐标画出直方图。使用 histo 命令能给出 x 和 y 对应的值，将结果默认输出到标准输出。其使用方法为<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jellyfish histo <span class="_">-l</span> 1 -h 1000 <span class="built_in">hash</span></span><br></pre></td></tr></table></figure></p>
+<p>常用参数：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">l <span class="params">| --low=&lt;num&gt;  default: 1</span><br><span class="line"></span></span>    最低的 x 轴的值。同时结果会将低于此值的所有的k-mer的数目作为 (x-1) 的值。因</span><br><span class="line">此该值为 2 和 1 的结果是一致的。</span><br><span class="line">-<span class="ruby"><span class="params">h |</span> --high=&lt;num&gt;  <span class="symbol">default:</span> <span class="number">10000</span></span><br><span class="line"></span>    最高的 x 轴的值。同时结果会将高于此值的所有的k-mer的数目的和作为 (x+1) 的值。</span><br><span class="line">-<span class="ruby">i <span class="params">| --increment=&lt;num&gt;  default: 1</span><br><span class="line"></span></span>    x 轴取值是每隔该数值取值</span><br><span class="line">-<span class="ruby"><span class="params">t |</span> --threads=&lt;num&gt;  <span class="symbol">default:</span> <span class="number">1</span></span><br><span class="line"></span>    使用的CPU线程数</span><br><span class="line">-<span class="ruby">f <span class="params">| --full  default: <span class="literal">false</span></span><br><span class="line"></span></span>    全部的直方图</span><br></pre></td></tr></table></figure></p>
+<h3 id="6-将二进制Hash结果转换成文本文件"><a href="#6-将二进制Hash结果转换成文本文件" class="headerlink" title="6. 将二进制Hash结果转换成文本文件"></a>6. 将二进制Hash结果转换成文本文件</h3><p>由于count命令生成的结果为二进制的，如有需要，则可以转换成可读文本文件。使用 dump 命令，使用方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jellyfish <span class="built_in">dump</span> -<span class="built_in">c</span> -t -<span class="type">U</span> <span class="number">1000</span> hash</span><br></pre></td></tr></table></figure></p>
+<p>常用参数：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">c <span class="params">| --colum  default: <span class="literal">false</span></span><br><span class="line"></span></span>    生成结果为2列，第一列为k-mer序列，第二列为对应的数目。默认情况下是是fasta格</span><br><span class="line">式，fasta的头为k-mer的数目，fasta的序列为k-mer的序列。</span><br><span class="line">-<span class="ruby"><span class="params">t |</span> --tab  <span class="symbol">default:</span> <span class="literal">false</span></span><br><span class="line"></span>    当 -c 参数存在时，以tab来进行分隔两行。默认是以空格来分开的。</span><br><span class="line">-<span class="ruby">L <span class="params">| --lower-count=&lt;num&gt;</span><br><span class="line"></span></span>    不输出小于该值的k-mer</span><br><span class="line">-<span class="ruby"><span class="params">U |</span> --upper-count=&lt;num&gt;</span><br><span class="line"></span>    不输出高于该值的k-mer</span><br><span class="line">-<span class="ruby">o <span class="params">| --output=&lt;file&gt;</span><br><span class="line"></span></span>    输出文件的路径和名称</span><br></pre></td></tr></table></figure></p>
+<h3 id="7-查询指定的k-mer出现的次数"><a href="#7-查询指定的k-mer出现的次数" class="headerlink" title="7. 查询指定的k-mer出现的次数"></a>7. 查询指定的k-mer出现的次数</h3><p>如果需要从Hash结果中查询指定的k-mer出现的次数，则要是用 query 命令。从标准输入读取k-mer的序列，从标准输出得到k-mer对应的数目。使用方法<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ jellyfish query <span class="built_in">hash</span></span><br></pre></td></tr></table></figure></p>
+<p>常用参数：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">C <span class="params">| --both-strands  default: <span class="literal">false</span></span><br><span class="line"></span></span>    同时查询k-mer序列的正负链</span><br><span class="line">-<span class="ruby"><span class="params">i |</span> --input=&lt;file&gt;</span><br><span class="line"></span>    输入的文件</span><br><span class="line">-<span class="ruby">o <span class="params">| --output=&lt;file&gt;</span><br><span class="line"></span></span>    输出的文件</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、思考"><a href="#四、思考" class="headerlink" title="四、思考"></a>四、思考</h2><h3 id="对Illumina-paired-end测序结果进行jellyfish分析"><a href="#对Illumina-paired-end测序结果进行jellyfish分析" class="headerlink" title="对Illumina paired-end测序结果进行jellyfish分析"></a>对Illumina paired-end测序结果进行jellyfish分析</h3><p>由于paired-end序列有一定的顺序，需要将第2个文件的序列进行反向重复后，在和第一个文件的序列合到一起进行分析。可以使用Trinity中附带的软件fastool来将fastq文件转换成fasta文件，以及反向重复的转换。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="variable">$Trinity_Home</span>/trinity-plugins/fastool/fastool --illumina-trinity --to-fasta reads_1<span class="selector-class">.fastaq</span> &gt; reads_1<span class="selector-class">.fasta</span></span><br><span class="line">$ <span class="variable">$Trinity_Home</span>/trinity-plugins/fastool/fastool --rev --illumina-trinity --to-fasta reads_2<span class="selector-class">.fastaq</span> &gt; reads_2<span class="selector-class">.fasta</span></span><br><span class="line">$ cat reads_1<span class="selector-class">.fasta</span> reads_2<span class="selector-class">.fasta</span> &gt; both<span class="selector-class">.fasta</span></span><br><span class="line">$ jellyfish count ....</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/21/Samtools常用命令详解/" itemprop="url">
                   Samtools常用命令详解
                 </a>
@@ -464,7 +575,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
