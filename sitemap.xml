@@ -2,6 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/software/index.html</loc>
+    
+    <lastmod>2016-05-24T09:26:36.849Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2016-05-24T09:23:18.357Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/diary/index.html</loc>
+    
+    <lastmod>2016-05-24T09:22:55.159Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2016-05-24T09:20:01.700Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/05/24/SAM%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%B4%E6%98%8E/</loc>
     
     <lastmod>2016-05-24T09:06:43.379Z</lastmod>
@@ -33,34 +61,6 @@
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2016-05-22T08:03:20.442Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2016-05-22T07:27:24.539Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/diary/index.html</loc>
-    
-    <lastmod>2016-05-22T07:26:55.560Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/software/index.html</loc>
-    
-    <lastmod>2016-05-22T07:26:10.299Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
-    
-    <lastmod>2016-05-22T07:25:25.455Z</lastmod>
     
   </url>
   
