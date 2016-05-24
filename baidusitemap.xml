@@ -5,11 +5,35 @@
     
   <url>
     <loc>http://yoursite.com/2016/05/24/SAMtools%E5%92%8CBCFtools%E5%B7%A5%E5%85%B7%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2016-05-24T12:48:04.943Z</lastmod>
+    <lastmod>2016-05-24T12:56:18.384Z</lastmod>
     <data>
         <display>
         <title>SAMtools和BCFtools工具详解</title>
         <pubTime>2016-05-24T12:43:24.000Z</pubTime>
+        
+        <tag>samtools</tag>
+         
+        <tag>software</tag>
+         
+        <tag>bioinformatics</tag>
+         
+         
+           
+             
+              <breadCrumb title="software" url="http://yoursite.com/categories/software/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2016-05-24T12:53:22.830Z</lastmod>
+    <data>
+        <display>
+        <title>Samtools常用命令详解</title>
+        <pubTime>2016-05-21T04:27:34.000Z</pubTime>
         
         <tag>samtools</tag>
          
@@ -44,30 +68,6 @@
         <tag>bioinformatics</tag>
          
         <tag>sam</tag>
-         
-         
-           
-             
-              <breadCrumb title="software" url="http://yoursite.com/categories/software/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2016-05-24T07:54:28.780Z</lastmod>
-    <data>
-        <display>
-        <title>Samtools常用命令详解</title>
-        <pubTime>2016-05-21T04:27:34.000Z</pubTime>
-        
-        <tag>samtools</tag>
-         
-        <tag>software</tag>
-         
-        <tag>bioinformatics</tag>
          
          
            
