@@ -4,13 +4,36 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/05/22/Jellyfish%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2016-05-22T08:50:02.736Z</lastmod>
+    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2016-05-24T07:51:40.400Z</lastmod>
     <data>
         <display>
-        <title>Jellyfish详解</title>
-        <pubTime>2016-05-22T07:10:07.000Z</pubTime>
+        <title>Samtools常用命令详解</title>
+        <pubTime>2016-05-21T04:27:34.000Z</pubTime>
         
+        <tag>software</tag>
+         
+        <tag>bioinformatics</tag>
+         
+        <tag>samtools</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://yoursite.com/2016/05/24/BWA-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2016-05-24T07:51:18.965Z</lastmod>
+    <data>
+        <display>
+        <title>BWA 命令详解</title>
+        <pubTime>2016-05-24T07:49:52.000Z</pubTime>
+        
+        <tag>bwa</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
@@ -26,19 +49,24 @@
 
     
   <url>
-    <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2016-05-22T08:49:57.052Z</lastmod>
+    <loc>http://yoursite.com/2016/05/22/Jellyfish%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2016-05-24T07:50:56.060Z</lastmod>
     <data>
         <display>
-        <title>Samtools常用命令详解</title>
-        <pubTime>2016-05-21T04:27:34.000Z</pubTime>
+        <title>Jellyfish详解</title>
+        <pubTime>2016-05-22T07:10:07.000Z</pubTime>
         
+        <tag>software</tag>
+         
         <tag>bioinformatics</tag>
          
-        <tag>软件</tag>
+        <tag>jellyfish</tag>
          
          
            
+             
+              <breadCrumb title="software" url="http://yoursite.com/categories/software/"/>
+          
         </display>
     </data>
     </url>
