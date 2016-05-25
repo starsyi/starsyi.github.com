@@ -29,16 +29,15 @@
 <p>设置路径：<br>export R_HOME=/your/R/install/path<br>export R_LIBS=/your/R-packages/path</p>
 <p>如何查看当前使用的R的路径？输入 which R即可。</p>
 <h2 id="四、GATK使用"><a href="#四、GATK使用" class="headerlink" title="四、GATK使用"></a>四、GATK使用</h2><h3 id="4-1-原始数据处理"><a href="#4-1-原始数据处理" class="headerlink" title="4.1 原始数据处理"></a>4.1 原始数据处理</h3><h4 id="1-对原始下机fastq文件进行过滤和比对（mapping"><a href="#1-对原始下机fastq文件进行过滤和比对（mapping" class="headerlink" title="(1). 对原始下机fastq文件进行过滤和比对（mapping)"></a>(1). 对原始下机fastq文件进行过滤和比对（mapping)</h4><p>对于Illumina下机数据推荐使用bwa进行mapping。<br>Bwa比对步骤大致如下：</p>
-<blockquote>
-<p><strong>(a) 对参考基因建立索引</strong><br>eg:<br>$ bwa index ref.fa<br>构建索引时需要注意的问题：bwa构建索引有两种算法，两种算法都是基于BWT的，这两种算法通过参数-a is 和-a bwtsw进行选择。其中-a bwtsw对于短的参考序列是不工作的，必须要大于等于10Mb；-a is是默认参数，这个参数不适用于大的参考序列，必须要小于等于2G。</p>
-<p><strong>(b) BWA Alignment</strong> 详细的命令参数，参考我的博文：<a href="http://starsyi.github.io/2016/05/24/BWA-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">BWA命令详解</a>  其中bwa以及后面使用的一系列tools都能直接读取gzip压缩文件。为了节省硬盘空间，以及减少压缩/解压缩过程的read/write时间，最好直接用*.gz文件作为input。output也最好先在管道里使用gzip压缩一下再输出。<br>eg:<br>$ bwa mem -t 20 ref.fa read1.fq read2.fq &gt; sample.sam</p>
-</blockquote>
+<p><strong>(a) 对参考基因建立索引</strong><br>eg:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bwa index <span class="keyword">ref</span>.fa</span><br></pre></td></tr></table></figure></p>
+<p>构建索引时需要注意的问题：bwa构建索引有两种算法，两种算法都是基于BWT的，这两种算法通过参数-a is 和-a bwtsw进行选择。其中-a bwtsw对于短的参考序列是不工作的，必须要大于等于10Mb；-a is是默认参数，这个参数不适用于大的参考序列，必须要小于等于2G。</p>
+<p><strong>(b) BWA Alignment</strong><br>详细的命令参数，参考我的博文：<a href="http://starsyi.github.io/2016/05/24/BWA-%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">BWA命令详解</a>  其中bwa以及后面使用的一系列tools都能直接读取gzip压缩文件。为了节省硬盘空间，以及减少压缩/解压缩过程的read/write时间，最好直接用*.gz文件作为input。output也最好先在管道里使用gzip压缩一下再输出。<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bwa mem -t <span class="number">20</span> ref<span class="selector-class">.fa</span> read1<span class="selector-class">.fq</span> read2<span class="selector-class">.fq</span> &gt; sample.sam</span><br></pre></td></tr></table></figure></p>
 <h4 id="2-对sam文件进行进行重新排序（reorder）"><a href="#2-对sam文件进行进行重新排序（reorder）" class="headerlink" title="(2). 对sam文件进行进行重新排序（reorder）"></a>(2). 对sam文件进行进行重新排序（reorder）</h4><p>由BWA生成的sam文件时按字典式排序法进行的排序（lexicographically）进行排序的（chr10，chr11…chr19，chr1，chr20…chr22，chr2，chr3…chrM，chrX，chrY），但是GATK在进行callsnp的时候是按照染色体组型（karyotypic）进行的（chrM，chr1，chr2…chr22，chrX，chrY），因此要对原始sam文件进行reorder。可以使用picard-tools中的ReorderSam完成。<br>Picard的SortSam需指定一个tmp目录，用于存放中间文件，中间文件会很大，above 10G.注意指定目录的空间大小。<br>eg:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar <span class="variable">$PICARD</span>/SortSam.jar \</span><br><span class="line">        REFERENCE=ref.fa \</span><br><span class="line">        INPUT=sample.sam \</span><br><span class="line">        OUTPUT=sample.reorder.sam \</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意：</p>
 <ol>
 <li>这一步的头文件可以人工加上，同时要确保头文件中有的序号在下面序列中也有对应的。虽然在GATK网站上的说明chrM可以在最前也可以在最后，但是当把chrM放在最后时可能会出错。</li>
-<li>在进行排序之前，要先构建参考序列的索引。<br>e.g：<br>$ samtools faidx hg19.fa<br>最后生成的索引文件：hg19.fa.fai。</li>
+<li>在进行排序之前，要先构建参考序列的索引。<br>e.g：samtools faidx hg19.fa ;<br>最后生成的索引文件：hg19.fa.fai。</li>
 <li>如果在上一步想把大文件切分成小文件的时候，头文件可以自己手工加上，之后运行这一步就好了。</li>
 </ol>
 </blockquote>
