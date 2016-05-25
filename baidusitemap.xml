@@ -4,6 +4,36 @@
 
     
   <url>
+    <loc>http://yoursite.com/2016/05/25/%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B%EF%BC%88BWA-SAMtools-picard-GATK%EF%BC%89/</loc>
+    <lastmod>2016-05-25T14:32:57.570Z</lastmod>
+    <data>
+        <display>
+        <title>变异检测（BWA+SAMtools+picard+GATK）</title>
+        <pubTime>2016-05-25T14:31:42.000Z</pubTime>
+        
+        <tag>samtools</tag>
+         
+        <tag>software</tag>
+         
+        <tag>bioinformatics</tag>
+         
+        <tag>GATK</tag>
+         
+        <tag>bwa</tag>
+         
+        <tag>picard</tag>
+         
+         
+           
+             
+              <breadCrumb title="software" url="http://yoursite.com/categories/software/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2016/05/21/Samtools%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2016-05-24T12:58:18.633Z</lastmod>
     <data>
@@ -11,11 +41,11 @@
         <title>Samtools常用命令详解</title>
         <pubTime>2016-05-21T04:27:34.000Z</pubTime>
         
+        <tag>samtools</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>samtools</tag>
          
          
            
@@ -35,11 +65,11 @@
         <title>SAMtools和BCFtools工具详解</title>
         <pubTime>2016-05-24T12:43:24.000Z</pubTime>
         
+        <tag>samtools</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>samtools</tag>
          
          
            
@@ -111,11 +141,11 @@
         <title>Jellyfish详解</title>
         <pubTime>2016-05-22T07:10:07.000Z</pubTime>
         
-        <tag>jellyfish</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>jellyfish</tag>
          
          
            

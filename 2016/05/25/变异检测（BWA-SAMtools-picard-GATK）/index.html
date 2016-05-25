@@ -1,0 +1,1134 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="samtools,software,bioinformatics,GATK,bwa,picard," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寂寞先生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://7xubqr.com1.z0.glb.clouddn.com/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、 简介首先说说GATK可以做什么。它主要用于从sequencing 数据中进行variant calling，包括SNP、INDEL。比如现在风行的exome sequencing找variant，一般通过BWA+GATK的pipeline进行数据分析。要run GATK，首先得了解它的网站(http://www.broadinstitute.org/gatk/)。
+
+使用GATK前须知事项：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变异检测（BWA+SAMtools+picard+GATK）">
+<meta property="og:url" content="http://yoursite.com/2016/05/25/变异检测（BWA-SAMtools-picard-GATK）/index.html">
+<meta property="og:site_name" content="寂寞先生">
+<meta property="og:description" content="一、 简介首先说说GATK可以做什么。它主要用于从sequencing 数据中进行variant calling，包括SNP、INDEL。比如现在风行的exome sequencing找variant，一般通过BWA+GATK的pipeline进行数据分析。要run GATK，首先得了解它的网站(http://www.broadinstitute.org/gatk/)。
+
+使用GATK前须知事项：">
+<meta property="og:image" content="http://7xubqr.com1.z0.glb.clouddn.com/GATK_workflows.png">
+<meta property="og:image" content="http://7xubqr.com1.z0.glb.clouddn.com/GATK3.png">
+<meta property="og:image" content="http://7xubqr.com1.z0.glb.clouddn.com/%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B%E7%94%9F%E6%88%90%E5%9B%BE%E7%89%87.jpg">
+<meta property="og:updated_time" content="2016-05-25T14:32:57.570Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="变异检测（BWA+SAMtools+picard+GATK）">
+<meta name="twitter:description" content="一、 简介首先说说GATK可以做什么。它主要用于从sequencing 数据中进行variant calling，包括SNP、INDEL。比如现在风行的exome sequencing找variant，一般通过BWA+GATK的pipeline进行数据分析。要run GATK，首先得了解它的网站(http://www.broadinstitute.org/gatk/)。
+
+使用GATK前须知事项：">
+<meta name="twitter:image" content="http://7xubqr.com1.z0.glb.clouddn.com/GATK_workflows.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 变异检测（BWA+SAMtools+picard+GATK） | 寂寞先生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?58c4dae5f3d2517753d1714e36369277";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	<!----------- add Fork me on Github ------------>
+	
+	<a href="https://github.com/starsyi/starsyi.github.com"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+	
+	<!----------- add Fork me on Github ------------> 
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">寂寞先生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">莫厌追欢笑语频，寻思离乱好伤神。闲来屈指从头数，得见清平有几人</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install', 'yYtz9jniQj6gr1XndP34','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                变异检测（BWA+SAMtools+picard+GATK）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-25T22:31:42+08:00" content="2016-05-25">
+              2016-05-25
+            </time>
+          </span>
+		  
+		
+			<span id="busuanzi_container_page_pv">&nbsp;&nbsp;|&nbsp;&nbsp;阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/25/变异检测（BWA-SAMtools-picard-GATK）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/25/变异检测（BWA-SAMtools-picard-GATK）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、-简介"><a href="#一、-简介" class="headerlink" title="一、 简介"></a>一、 简介</h2><p>首先说说GATK可以做什么。它主要用于从sequencing 数据中进行variant calling，包括SNP、INDEL。比如现在风行的exome sequencing找variant，一般通过BWA+GATK的pipeline进行数据分析。<br>要run GATK，首先得了解它的网站(<a href="http://www.broadinstitute.org/gatk/)。" target="_blank" rel="external">http://www.broadinstitute.org/gatk/)。</a></p>
+<hr>
+<p>使用GATK前须知事项：<br>（1）对GATK的测试主要使用的是人类全基因组和外显子组的测序数据，而且全部是基于illumina数据格式，目前还没有提供其他格式文件（如Ion Torrent）或者实验设计（RNA-Seq）的分析方法。<br>（2）GATK是一个应用于前沿科学研究的软件，不断在更新和修正，因此，在使用GATK进行变异检测时，最好是下载最新的版本，目前的版本是3.5（2016-05）。下载网站：<a href="https://www.broadinstitute.org/gatk/download/auth?package=GATK，" target="_blank" rel="external">https://www.broadinstitute.org/gatk/download/auth?package=GATK，</a> 下载可能会需要注册！</p>
+<hr>
+<h2 id="二、GATK的使用流程"><a href="#二、GATK的使用流程" class="headerlink" title="二、GATK的使用流程"></a>二、GATK的使用流程</h2><p><strong>GATK最佳使用方案：</strong>共3大步骤。原始数据的处理—变异检测—初步分析。<br><strong>方案一：</strong>使用GATK检测变异，<a href="https://www.broadinstitute.org/gatk/guide/bp_step.php?p=1" target="_blank" rel="external">官方推荐的流程</a>：<br><img src="http://7xubqr.com1.z0.glb.clouddn.com/GATK_workflows.png" alt="GATK SNP Calling"></p>
+<p><strong>方案二：</strong>在这里我们使用的流程可能更复杂一点，这也是目前很多科研团队使用的流程，即在官方流程上结合SAMtools工具的一套流程。<br><img src="http://7xubqr.com1.z0.glb.clouddn.com/GATK3.png" alt="GATK SNP Calling combine SAMtools"></p>
+<h2 id="三、-准备工作"><a href="#三、-准备工作" class="headerlink" title="三、 准备工作"></a>三、 准备工作</h2><h3 id="3-1-软件下载安装"><a href="#3-1-软件下载安装" class="headerlink" title="3.1 软件下载安装"></a>3.1 软件下载安装</h3><ol>
+<li>bwa：<a href="http://iweb.dl.sourceforge.net/project/bio-bwa/bwa-0.7.12.tar.bz2" target="_blank" rel="external">http://iweb.dl.sourceforge.net/project/bio-bwa/bwa-0.7.12.tar.bz2</a></li>
+<li>picard：<a href="http://broadinstitute.github.io/picard/" target="_blank" rel="external">http://broadinstitute.github.io/picard/</a></li>
+<li>samtools：<a href="https://github.com/samtools/samtools/archive/0.1.19.tar.gz（这里使用0.1.19版本）" target="_blank" rel="external">https://github.com/samtools/samtools/archive/0.1.19.tar.gz（这里使用0.1.19版本）</a></li>
+<li>GATK：<a href="https://www.broadinstitute.org/gatk/download/auth?package=GATK（需要注册登录）" target="_blank" rel="external">https://www.broadinstitute.org/gatk/download/auth?package=GATK（需要注册登录）</a></li>
+<li>R语言；</li>
+<li>java；<h3 id="3-2-软件安装"><a href="#3-2-软件安装" class="headerlink" title="3.2 软件安装"></a>3.2 软件安装</h3>其中picard tools和GATK，解压到某个目录即可，无需安装。打开解压缩后的目录，会发现GenomeAnalysisTK.jar这个文件。我们要用的各种工具都在这个包里。务必下载最新版（当然只是建议）。<br>BWA、SAMtools、R、java的安装我就不再这里说了，我前面的博文已经讲过BWA、和SAMtools可以参考，还有R和java参考网上，也许我以后会加进来。<h3 id="3-3-参考基因组和annotation下载"><a href="#3-3-参考基因组和annotation下载" class="headerlink" title="3.3 参考基因组和annotation下载"></a>3.3 参考基因组和annotation下载</h3>这里主要是针对需要用到已知变异信息的情况。对于这些已知变异，GATK只提供了人类的已知变异信息，可以在GATK的FTP站点下载（GATK resource bundle）。<br>GATK resource bundle介绍：<br><a href="http://gatkforums.broadinstitute.org/discussion/1213/whats-in-the-resource-bundle-and-how-can-i-get-it" target="_blank" rel="external">http://gatkforums.broadinstitute.org/discussion/1213/whats-in-the-resource-bundle-and-how-can-i-get-it</a><br>GATK resource bundle FTP地址：<br><a href="http://gatkforums.broadinstitute.org/discussion/1215/how-can-i-access-the-gsa-public-ftp-server" target="_blank" rel="external">http://gatkforums.broadinstitute.org/discussion/1215/how-can-i-access-the-gsa-public-ftp-server</a><br>例如呢，以hg19(human genome build 19.此外，b37也很常用)为参考序列,<br>输入如下命令： lftp ftp.broadinstitute.org -u gsapubftp-anonymous<br>回车后键入空格，便可进入resource bundle。进入其中名为bundle的目录，找到最新版的hg19目录。<br>要下载的文件包括：<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ucsc<span class="selector-class">.hg19</span><span class="selector-class">.fasta</span></span><br><span class="line">ucsc<span class="selector-class">.hg19</span><span class="selector-class">.fasta</span><span class="selector-class">.fai</span></span><br><span class="line"><span class="number">1000</span>G_omni2.<span class="number">5</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span></span><br><span class="line"><span class="number">1000</span>G_omni2.<span class="number">5</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span><span class="selector-class">.idx</span></span><br><span class="line"><span class="number">1000</span>G_phase1<span class="selector-class">.indels</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span></span><br><span class="line"><span class="number">1000</span>G_phase1<span class="selector-class">.indels</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span><span class="selector-class">.idx</span></span><br><span class="line">dbsnp_137<span class="selector-class">.hg19</span><span class="selector-class">.vcf</span></span><br><span class="line">dbsnp_137<span class="selector-class">.hg19</span><span class="selector-class">.vcf</span><span class="selector-class">.idx</span></span><br><span class="line">hapmap_3.<span class="number">3</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span></span><br><span class="line">hapmap_3.<span class="number">3</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span><span class="selector-class">.idx</span></span><br><span class="line">Mills_and_1000G_gold_standard<span class="selector-class">.indels</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span></span><br><span class="line">Mills_and_1000G_gold_standard<span class="selector-class">.indels</span><span class="selector-class">.hg19</span><span class="selector-class">.vcf</span><span class="selector-class">.idx</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>当然，如果要研究的不是人类基因组，在这里我们要研究的物种，并没有vcf注释信息，这时可以自己去找一些该物种已有的vcf注释文件，如果没有的话，需要自行构建已知变异，GATK提供了详细的构建方法。</p>
+<h3 id="3-4-R设置"><a href="#3-4-R设置" class="headerlink" title="3.4 R设置"></a>3.4 R设置</h3><p>GATK在进行BQSR和VQSR的过程中会使用到R软件绘制一些图，因此，在运行GATK之前最好先检查一下是否正确安装了R和所需要的包，所需要的包大概包括ggplot2、gplots、bitops、caTools、colorspace、gdata、gsalib、reshape、RColorBrewer等。如果画图时出现错误，会提示需要安装的包的名称。</p>
+<p>如何check这些packages有没有安装？以ggplot2为例，进入R，输入library(ggplot2)，如果没有error信息，就表明安装了ggplot2；如果没有安装，输入命令install.packages(“ggplot2”)，按照提示操作便可安装ggplot2。如果package安装不成功，很可能是权限问题：默认使用的R是系统管理员安装的，而你在/usr等目录下没有write权限。这是可以选择直接在自己目录下安装了R，然后install各种packages。也可以在 install.packages时指定将packages安装到自己的目录。</p>
+<p>将R packages安装到自己目录的方法：<br> install.packages(“ggplot2”, lib=”/your/own/R-packages/“)<br>然后将指定的路径添加到R_LIBS变量即可。</p>
+<p>gsalib的安装有点不一样。<br>从该网站下载gsalib：<a href="https://github.com/broadgsa/gatk" target="_blank" rel="external">https://github.com/broadgsa/gatk</a><br>解压缩后，进入build.xml文件所在的目录，输入命令ant gsalib。这样就可以安装gsalib 了。如果该gsalib仍然无法load，可能需要将gsllib的path告诉R。<br><a href="http://gatkforums.broadinstitute.org/discussion/1244/what-is-a-gatkreport" target="_blank" rel="external">http://gatkforums.broadinstitute.org/discussion/1244/what-is-a-gatkreport</a><br>这里有较详细的步骤。（奇怪的是我没有~/.Rprofle文件，ant完后也没有add path，仍然work了）<br>此外，gaslib安装要求java的版本为1.6。</p>
+<p>设置路径：<br>export R_HOME=/your/R/install/path<br>export R_LIBS=/your/R-packages/path</p>
+<p>如何查看当前使用的R的路径？输入 which R即可。</p>
+<h2 id="四、GATK使用"><a href="#四、GATK使用" class="headerlink" title="四、GATK使用"></a>四、GATK使用</h2><h3 id="4-1-原始数据处理"><a href="#4-1-原始数据处理" class="headerlink" title="4.1 原始数据处理"></a>4.1 原始数据处理</h3><h4 id="1-对原始下机fastq文件进行过滤和比对（mapping"><a href="#1-对原始下机fastq文件进行过滤和比对（mapping" class="headerlink" title="(1). 对原始下机fastq文件进行过滤和比对（mapping)"></a>(1). 对原始下机fastq文件进行过滤和比对（mapping)</h4><p>对于Illumina下机数据推荐使用bwa进行mapping。<br>Bwa比对步骤大致如下：</p>
+<blockquote>
+<p><strong>(a) 对参考基因建立索引</strong><br>eg:<br><figure class="highlight plain"><figcaption><span>bwa index ref.fa ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt; 构建索引时需要注意的问题：bwa构建索引有两种算法，两种算法都是基于BWT的，这两种算法通过参数-a is 和-a</span><br><span class="line">&gt; bwtsw进行选择。其中-a bwtsw对于短的参考序列是不工作的，必须要大于等于10Mb；-a</span><br><span class="line">&gt; is是默认参数，这个参数不适用于大的参考序列，必须要小于等于2G。</span><br><span class="line">&gt; **(b) BWA Alignment** 详细的命令参数，参考我的博文：[BWA命令详解][4] </span><br><span class="line">其中bwa以及后面使用的一系列tools都能直接读取gzip压缩文件。为了节省硬盘空间，以及减少压缩/解压缩过程的read/write时间，最好直接用*.gz文件作为input。output也最好先在管道里使用gzip压缩一下再输出。</span><br><span class="line">eg: </span><br><span class="line">&gt; ```  $ bwa mem -t 20 ref.fa read1.fq read2.fq &gt; sample.sam</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h4 id="2-对sam文件进行进行重新排序（reorder）"><a href="#2-对sam文件进行进行重新排序（reorder）" class="headerlink" title="(2). 对sam文件进行进行重新排序（reorder）"></a>(2). 对sam文件进行进行重新排序（reorder）</h4><p>由BWA生成的sam文件时按字典式排序法进行的排序（lexicographically）进行排序的（chr10，chr11…chr19，chr1，chr20…chr22，chr2，chr3…chrM，chrX，chrY），但是GATK在进行callsnp的时候是按照染色体组型（karyotypic）进行的（chrM，chr1，chr2…chr22，chrX，chrY），因此要对原始sam文件进行reorder。可以使用picard-tools中的ReorderSam完成。<br>Picard的SortSam需指定一个tmp目录，用于存放中间文件，中间文件会很大，above 10G.注意指定目录的空间大小。<br>eg:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar <span class="variable">$PICARD</span>/SortSam.jar \</span><br><span class="line">        REFERENCE=ref.fa \</span><br><span class="line">        INPUT=sample.sam \</span><br><span class="line">        OUTPUT=sample.reorder.sam \</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：</p>
+<ol>
+<li>这一步的头文件可以人工加上，同时要确保头文件中有的序号在下面序列中也有对应的。虽然在GATK网站上的说明chrM可以在最前也可以在最后，但是当把chrM放在最后时可能会出错。</li>
+<li>在进行排序之前，要先构建参考序列的索引。<br>e.g： <figure class="highlight plain"><figcaption><span>samtools faidx hg19.fa ```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   最后生成的索引文件：```hg19.fa.fai```。</span><br><span class="line">3. 如果在上一步想把大文件切分成小文件的时候，头文件可以自己手工加上，之后运行这一步就好了。</span><br><span class="line"></span><br><span class="line">#### (3). 将sam文件转换成bam文件（bam是二进制文件，运算速度快） ####</span><br><span class="line">这一步可使用samtools view完成。如果上一步直接使用的bam后缀，则不需要再转换。</span><br><span class="line">e.g:</span><br></pre></td></tr></table></figure></li>
+</ol>
+</blockquote>
+<p>$ samtools view -bS sample.reorder.sam -o sample.reorder.bam<br><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="avrasm"><span class="meta">#### (4). 对bam文件进行sort排序处理 #### </span></span><br><span class="line">这一步是将sam文件中同一染色体对应的条目按照坐标顺序从小到大进行排序。可以使用picard-tools中SortSam完成。</span><br><span class="line"><span class="symbol">e.g:</span></span></span><br></pre></td></tr></table></figure></p>
+<p>$ java  -jar picard-tools/SortSam.jar \<br>        INPUT=sample.reorder.bam \ #这里也可以直接用sample.sort.sam,则输出为bam格式，可以省去前面samtools的转换步骤<br>        OUTPUT=sample.sort.bam \<br>        SORT_ORDER=coordinate<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; 注意：</span><br><span class="line">SAMtools也提供了工具进行sam <span class="keyword">file</span>的<span class="keyword">sort</span>和bam <span class="keyword">file</span>的生成，并且不会生成大的中间文件。但是不建议在GATK做SNP calling等步骤的时候使用samtools的排序方式进行<span class="keyword">sort</span>。</span><br><span class="line"></span><br><span class="line">#### (5). 对bam文件进行加头（head）处理 ####</span><br><span class="line">GATK2.0以上版本将不再支持无头文件的变异检测。加头这一步可以在BWA比对的时候进行，通过-R参数的选择可以完成。如果在BWA比对期间没有选择-R参数，可以增加这一步骤。可使用picard-tools中AddOrReplaceReadGroups完成。</span><br><span class="line"><span class="keyword">e</span>.<span class="keyword">g</span>:</span><br><span class="line">```bash</span><br><span class="line">$ java  -jar picard-tools/AddOrReplaceReadGroups.jar \</span><br><span class="line">        I=<span class="keyword">sample</span>.<span class="keyword">sort</span>.bam \</span><br><span class="line">        O=<span class="keyword">sample</span>.<span class="keyword">sort</span>.addhead.bam \</span><br><span class="line">        ID=sampleID \</span><br><span class="line">        LB=sampleID \</span><br><span class="line">        <span class="keyword">PL</span>=illumina \</span><br><span class="line">        PU=samplePU \</span><br><span class="line">        SM=<span class="keyword">sample</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>ID str：输入reads集ID号；LB：read集文库名；PL：测序平台（illunima或solid）；PU：测序平台下级单位名称（run的名称）；SM：样本名称。<br>注意：这一步尽量不要手动加头，本人尝试过多次手工加头，虽然看起来与软件加的头是一样的，但是程序却无法运行.</p>
+</blockquote>
+<h4 id="6-Merge"><a href="#6-Merge" class="headerlink" title="(6). Merge"></a>(6). Merge</h4><p>如果一个样本分为多个lane进行测序，那么在进行下一步之前可以将每个lane的bam文件合并。<br>e.g:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ java -jar  picard-tools-1.70/MergeSamFiles.jar \</span><br><span class="line">    INPUT=lane1.bam \</span><br><span class="line">    INPUT=lane2.bam \</span><br><span class="line">    INPUT=lane3.bam \</span><br><span class="line">    INPUT=lane4.bam \</span><br><span class="line">    ……</span><br><span class="line">    INPUT=lane8.bam \</span><br><span class="line">    OUTPUT=sample_all.bam</span><br></pre></td></tr></table></figure></p>
+<h4 id="7-Duplicates-Marking"><a href="#7-Duplicates-Marking" class="headerlink" title="(7). Duplicates Marking"></a>(7). Duplicates Marking</h4><p>在制备文库的过程中，由于PCR扩增过程中会存在一些偏差，也就是说有的序列会被过量扩增。这样，在比对的时候，这些过量扩增出来的完全相同的序列就会比对到基因组的相同位置。而这些过量扩增的reads并不是基因组自身固有序列，不能作为变异检测的证据，因此，要尽量去除这些由PCR扩增所形成的duplicates，这一步可以使用picard-tools来完成。去重复的过程是给这些序列设置一个flag以标志它们，方便GATK的识别。还可以设置 REMOVE_DUPLICATES=true 来丢弃duplicated序列。对于是否选择标记或者删除，对结果应该没有什么影响，GATK官方流程里面给出的例子是仅做标记不删除。这里定义的重复序列是这样的：如果两条reads具有相同的长度而且比对到了基因组的同一位置，那么就认为这样的reads是由PCR扩增而来，就会被GATK标记。<br>e.g:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -Xmx10g -jar <span class="variable">$PICARD</span>/MarkDuplicates<span class="selector-class">.jar</span> \</span><br><span class="line">        I=sample<span class="selector-class">.sort</span><span class="selector-class">.addhead</span><span class="selector-class">.bam</span> \</span><br><span class="line">        O=sample<span class="selector-class">.rmdup</span><span class="selector-class">.bam</span> \</span><br><span class="line">        VALIDATION_STRINGENCY=LENIENT \</span><br><span class="line">        MAX_FILE_HANDLES_FOR_READ_ENDS_MAP=<span class="number">1000</span> \</span><br><span class="line">        REMOVE_DUPLICATES= false \</span><br><span class="line">        M=sample<span class="selector-class">.sort</span><span class="selector-class">.addhead</span><span class="selector-class">.rmdup</span><span class="selector-class">.metric</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>注意：</strong><br>dedup这一步只要在library层面上进行就可以了，例如一个sample如果建了多个库的话，对每个库进行dedup即可，不需要把所有库合成一个sample再进行dedup操作。其实并不能准确的定义被mask的reads到底是不是duplicates，重复序列的程度与测序深度和文库类型都有关系。最主要目的就是尽量减小文库构建时引入文库的PCR bias。</p>
+</blockquote>
+<h4 id="8-要对上一步得到的结果生成索引文件"><a href="#8-要对上一步得到的结果生成索引文件" class="headerlink" title="(8). 要对上一步得到的结果生成索引文件"></a>(8). 要对上一步得到的结果生成索引文件</h4><p>可以用samtools完成，生成的索引后缀是bai。<br>e.g:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ samtools index sample<span class="selector-class">.rmdup</span><span class="selector-class">.bam</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="9-Local-realignment-around-indels"><a href="#9-Local-realignment-around-indels" class="headerlink" title="(9). Local realignment around indels"></a>(9). Local realignment around indels</h4><p>这一步的目的就是将比对到indel附近的reads进行局部重新比对，将比对的错误率降到最低。一般来说，绝大部分需要进行重新比对的基因组区域，都是因为插入/缺失的存在，因为在indel附近的比对会出现大量的碱基错配，这些碱基的错配很容易被误认为SNP。还有，在比对过程中，比对算法对于每一条read的处理都是独立的，不可能同时把多条reads与参考基因组比对来排错。因此，即使有一些reads能够正确的比对到indel，但那些恰恰比对到indel开始或者结束位置的read也会有很高的比对错误率，这都是需要重新比对的。Local realignment就是将由indel导致错配的区域进行重新比对，将indel附近的比对错误率降到最低。<br>主要分为两步：<br>第一步，通过运行RealignerTargetCreator来确定要进行重新比对的区域。<br>e.g:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -T RealignerTargetCreator \</span><br><span class="line">        -I sample<span class="selector-class">.rmdup</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -o sample<span class="selector-class">.realign</span><span class="selector-class">.intervals</span> \</span><br><span class="line">        -known known<span class="selector-class">.indels</span><span class="selector-class">.vcf</span> #如果没有已知变异位点的信息，暂时可以不用，那么这一步的结果用来后面自己构建know sites</span><br></pre></td></tr></table></figure></p>
+<p>参数说明：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"><span class="symbol">R:</span>             参考基因组；</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">T:</span>             选择的GATK工具；</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">I:</span>             输入上一步所得bam文件；</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">o:</span>             输出的需要重新比对的基因组区域结果；</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">maxInterval:</span>   允许进行重新比对的基因组区域的最大值，不能太大，太大耗费会很长时间，默认值<span class="number">500</span>；</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">known:</span>         已知的可靠的indel位点，指定已知的可靠的indel位点，重比对将主要围绕这些位点进行，对于人类基因组数据而言，可以直接指定GATK resource bundle里面的indel文件（必须是vcf文件）。</span></span><br></pre></td></tr></table></figure></p>
+<p>对于known sites的选择很重要，GATK中每一个用到known sites的工具对于known sites的使用都是不一样的，但是所有的都有一个共同目的，那就是分辨真实的变异位点和不可信的变异位点。如果不提供这些known sites的话，这些统计工具就会产生偏差，最后会严重影响结果的可信度。在这些需要知道known sites的工具里面，只有UnifiedGenotyper和HaplotypeCaller对known sites没有太严格的要求。</p>
+<p>如果你所研究的对象是人类基因组的话，那就简单多了，因为GATK网站上对如何使用人类基因组的known sites做出了详细的说明，具体的选择方法如下表，这些文件都可以在GATK resource bundle中下载。</p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th style="text-align:center">dbSNP 129</th>
+<th style="text-align:center">dbSNP &gt;132</th>
+<th style="text-align:center">Mills indels</th>
+<th style="text-align:center">1KG indels</th>
+<th style="text-align:center">HapMap</th>
+<th style="text-align:center">Omni</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RealignerTargetCreator</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>IndelRealigner</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>BaseRecalibrator</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>(UnifiedGenotyper/ HaplotypeCaller)</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td>VariantRecalibrator</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+</tr>
+<tr>
+<td>VariantEval</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>第二步</strong>，通过运行IndelRealigner在这些区域内进行重新比对。<br>e.g:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -T IndelRealigner \</span><br><span class="line">        -targetIntervals sample<span class="selector-class">.realign</span><span class="selector-class">.intervals</span> \</span><br><span class="line">        -I sample<span class="selector-class">.rmdup</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -o sample<span class="selector-class">.realign</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -known known<span class="selector-class">.indels</span><span class="selector-class">.vcf</span> #如果没有已知变异位点的信息，暂时可以不用，那么这一步的结果用来后面自己构建know sites</span><br></pre></td></tr></table></figure></p>
+<p>运行结束后，生成的sample.realign.bam即为最后重比对后的文件。</p>
+<blockquote>
+<p><strong>注意：</strong></p>
+<ol>
+<li>第一步和第二步中使用的输入文件（bam文件）、参考基因组和已知indel文件必须是相同的文件。</li>
+<li>当在相同的基因组区域发现多个indel存在时，这个工具会从其中选择一个最有可能存在比对错误的indel进行重新比对，剩余的其他indel不予考虑。</li>
+<li>对于454下机数据，本工具不支持。此外，这一步还会忽略bwa比对中质量值为0的read以及在CIGAR信息中存在连续indel的reads。</li>
+</ol>
+</blockquote>
+<hr>
+<p><strong>GATK+samtools构建know sites</strong><br>但是如果你要研究的不是人类基因组的话，那就有点麻烦了，<a href="http://www.broadinstitute.org/gatk/guide/article?id=1243，这个网站上是做非人类基因组时，大家分享的经验，可以参考一下。这个known" target="_blank" rel="external">http://www.broadinstitute.org/gatk/guide/article?id=1243，这个网站上是做非人类基因组时，大家分享的经验，可以参考一下。这个known</a> sites如果实在没有的话，也是可以自己构建的：首先，先使用没有经过矫正的数据进行一轮SNP calling；然后，挑选最可信的SNP位点进行BQSR分析；最后，在使用这些经过BQSR的数据进行一次真正的SNP calling。这几步可能要重复好多次才能得到可靠的结果。<br><strong>第一步：</strong><br>使用GATK检测变异：<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -T UnifiedGenotyper \</span><br><span class="line">        -I sample<span class="selector-class">.realign</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -o sample<span class="selector-class">.gatk</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -dcov <span class="number">200</span> -A QualByDepth -A FisherStrand -A AlleleBalance -A Coverage -A MappingQualityZero -A TandemRepeatAnnotator -baq CALCULATE_AS_NECESSARY -stand_call_conf <span class="number">30.0</span> -stand_emit_conf <span class="number">10.0</span> \</span><br><span class="line">        -glm BOTH -rf BadCigar \</span><br><span class="line">        -log ./log/sample<span class="selector-class">.gatk</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span><span class="selector-class">.log</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第二步:</strong><br>使用Samtools检测变异：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ samtools index <span class="keyword">sample</span>.realign.bam </span><br><span class="line">$ samtools mpileup -DSugf <span class="variable">$SOYBEAN_REF</span> <span class="keyword">sample</span>.realign.bam | bcftools <span class="keyword">view</span> -cvg - &gt; <span class="keyword">sample</span>.samtools.raw.vcf</span><br></pre></td></tr></table></figure></p>
+<p><strong>第三步:</strong><br>结合GATK和SAMtools的vcf结果：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -T SelectVariants \</span><br><span class="line">        --variant sample<span class="selector-class">.gatk</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        --concordance sample<span class="selector-class">.samtools</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -o sample<span class="selector-class">.concordance</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -log ./log/sample<span class="selector-class">.concordance</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span><span class="selector-class">.log</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第四步：</strong><br>过滤，挑选最可信的SNP位点：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ MEANQUAL=$(awk <span class="string">'&#123; if ($1 !~ /#/) &#123; total += $6; count++  &#125;  &#125; END &#123; print total/count  &#125;'</span> sample<span class="selector-class">.concordance</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span>)</span><br><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -T VariantFiltration \</span><br><span class="line">        --filterExpression <span class="string">"QD &lt; 20.0 || ReadPosRankSum &lt; -8.0 || FS &gt; 10.0 || QUAL &lt; $MEANQUAL"</span> --filterName LowQualFilter \</span><br><span class="line">        --missingValuesInExpressionsShouldEvaluateAsFailing \</span><br><span class="line">        --variant sample<span class="selector-class">.concordance</span><span class="selector-class">.raw</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        --logging_level ERROR -o sample<span class="selector-class">.concordance</span><span class="selector-class">.flt</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -log ./log/sample<span class="selector-class">.concordance</span><span class="selector-class">.flt</span><span class="selector-class">.vcf</span><span class="selector-class">.log</span></span><br><span class="line">$ grep -v <span class="string">"Filter"</span> sample<span class="selector-class">.concordance</span><span class="selector-class">.flt</span><span class="selector-class">.vcf</span> &gt; sample<span class="selector-class">.concordance</span><span class="selector-class">.flt</span><span class="selector-class">.knowsites</span><span class="selector-class">.vcf</span></span><br></pre></td></tr></table></figure></p>
+<p>这样我们就得到了可信度比较高的<strong>know sites</strong>。</p>
+<hr>
+<h4 id="10-Base-quality-score-recalibration"><a href="#10-Base-quality-score-recalibration" class="headerlink" title="(10). Base quality score recalibration"></a>(10). Base quality score recalibration</h4><p>这一步是对bam文件里reads的碱基质量值进行重新校正，使最后输出的bam文件中reads中碱基的质量值能够更加接近真实的与参考基因组之间错配的概率。这一步适用于多种数据类型，包括illunima、solid、454、CG等数据格式。在GATK2.0以上版本中还可以对indel的质量值进行校正，这一步对indel calling非常有帮助。<br>举例说明，在reads碱基质量值被校正之前，我们要保留质量值在Q25以上的碱基，但是实际上质量值在Q25的这些碱基的错误率在1%，也就是说质量值只有Q20，这样就会对后续的变异检测的可信度造成影响。还有，在边合成边测序的测序过程中，在reads末端碱基的错误率往往要比起始部位更高。另外，AC的质量值往往要低于TG。BQSR的就是要对这些质量值进行校正。<br>BQSR主要有三步：<br><strong>第一步：</strong><br>利用工具BaseRecalibrator，根据一些known sites，生成一个校正质量值所需要的数据文件，GATK网站以“.grp”为后缀命名。<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -T BaseRecalibrator \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -I sample<span class="selector-class">.realign</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -knownSites sample<span class="selector-class">.concordance</span><span class="selector-class">.flt</span><span class="selector-class">.knowsites</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -o sample<span class="selector-class">.recal_data</span><span class="selector-class">.grp</span> \</span><br><span class="line">        -log ./log/sample<span class="selector-class">.recal_data_1</span><span class="selector-class">.grp</span><span class="selector-class">.log</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第二步：</strong><br>利用第一步生成的ChrALL.100.sam.recal.08-1.grp来生成校正后的数据文件，也是以“.grp”命名，这一步主要是为了与校正之前的数据进行比较，最后生成碱基质量值校正前后的比较图，如果不想生成最后BQSR比较图，这一步<strong>可以省略</strong>。<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -T BaseRecalibrator \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -I sample<span class="selector-class">.realign</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -BQSR sample<span class="selector-class">.recal_data</span><span class="selector-class">.grp</span> \</span><br><span class="line">        -o sample<span class="selector-class">.recal_data_2</span><span class="selector-class">.grp</span> \</span><br><span class="line">        -knownSites sample<span class="selector-class">.concordance</span><span class="selector-class">.flt</span><span class="selector-class">.knowsites</span><span class="selector-class">.vcf</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第三步：</strong><br>利用工具PrintReads将经过质量值校正的数据输出到新的bam文件中，用于后续的变异检测。<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -T PrintReads \</span><br><span class="line">        -I sample<span class="selector-class">.realign</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -o sample<span class="selector-class">.recal</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -BQSR sample<span class="selector-class">.recal_data_1</span><span class="selector-class">.grp</span> \</span><br><span class="line">        -log ./log/sample<span class="selector-class">.recal</span><span class="selector-class">.bam</span><span class="selector-class">.log</span></span><br></pre></td></tr></table></figure></p>
+<p>主要参数说明：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="keyword">bqsrBAQGOP: </span>   <span class="keyword">BQSR </span><span class="keyword">BAQ </span>gap open 罚值，默认值是<span class="number">40</span>，如果是对全基因组数据进行<span class="keyword">BQSR分析，设置为30会更好。</span><br><span class="line"></span>-lqt:           在计算过程中，该算法所能考虑的reads两端的最小质量值。如果质量值小于该值，计算过程中将不予考虑，默认值是<span class="number">2</span>。</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>注意：</strong> </p>
+<ol>
+<li>当bam文件中的reads数量过少时，BQSR可能不会正常工作，GATK网站建议base数量要大于100M才能得到比较好的结果。</li>
+<li>除非你所研究的样本所得到的reads数实在太少，或者比对结果中的mismatch基本上都是实际存在的变异，否则必须要进行BQSR这一步。对于人类基因组，即使有了dbSNP和千人基因组的数据，还有很多mismatch是错误的。因此，这一步能做一定要做。</li>
+</ol>
+</blockquote>
+<h4 id="11-分析和评估BQSR结果"><a href="#11-分析和评估BQSR结果" class="headerlink" title="(11). 分析和评估BQSR结果"></a>(11). 分析和评估BQSR结果</h4><p>这一步会生成评估前后碱基质量值的比较结果，可以选择使用图片和表格的形式展示。<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -T AnalyzeCovariates \</span><br><span class="line">        -R ref<span class="selector-class">.fa</span> \</span><br><span class="line">        -before sample<span class="selector-class">.recal_data_1</span><span class="selector-class">.grp</span> \</span><br><span class="line">        -after sample<span class="selector-class">.recal_data_2</span><span class="selector-class">.grp</span> \</span><br><span class="line">        -csv sample<span class="selector-class">.recal</span><span class="selector-class">.grp</span><span class="selector-class">.csv</span> \</span><br><span class="line">        -plots sample<span class="selector-class">.recal</span><span class="selector-class">.grp</span><span class="selector-class">.pdf</span></span><br></pre></td></tr></table></figure></p>
+<p>参数解释：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">before：   基于原始比对结果生成的第一次校对表格。</span><br><span class="line"></span>-<span class="ruby">after：    基于第一次校对表格生成的第二次校对表格。</span><br><span class="line"></span>-<span class="ruby">plots：    评估BQSR结果的报告文件。</span><br><span class="line"></span>-<span class="ruby">csv：      生成报告中图标所需要的所有数据。</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="12-Reduce-bam-file"><a href="#12-Reduce-bam-file" class="headerlink" title="(12).Reduce bam file"></a>(12).Reduce bam file</h4><p>这一步是使用ReduceReads这个工具将bam文件进行压缩，生成新的bam文件，新的bam文件仍然保持bam文件的格式和所有进行变异检测所需要的信息。这样不仅能够节省存储空间，也方便后续变异检测过程中对数据的处理。<br>eg:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -T ReduceReads \</span><br><span class="line">        -R hg19<span class="selector-class">.fa</span> \</span><br><span class="line">        -I sample<span class="selector-class">.recal</span><span class="selector-class">.bam</span> \</span><br><span class="line">        -o sample<span class="selector-class">.recal</span><span class="selector-class">.reduce</span><span class="selector-class">.bam</span></span><br></pre></td></tr></table></figure></p>
+<p>到此为止，GATK流程中的第一大步骤就结束了，完成了variants calling所需要的所有准备工作，生成了用于下一步变异检测的bam文件。</p>
+<h3 id="4-2-变异检测"><a href="#4-2-变异检测" class="headerlink" title="4.2 变异检测"></a>4.2 变异检测</h3><h4 id="1-SNP-Calling"><a href="#1-SNP-Calling" class="headerlink" title="(1). SNP Calling"></a>(1). SNP Calling</h4><p>e.g:<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK.jar \</span><br><span class="line">        -<span class="ruby">R ref.fa \</span><br><span class="line"></span>        -<span class="ruby">T UnifiedGenotyper \</span><br><span class="line"></span>        -<span class="ruby">I sample.recal.bam \</span><br><span class="line"></span>        -<span class="ruby">o sample.snp.raw.vcf \</span><br><span class="line"></span>        -<span class="ruby">dcov <span class="number">200</span> \</span><br><span class="line"></span>        -<span class="ruby">A QualByDepth -A FisherStrand -A AlleleBalance -A Coverage -A MappingQualityZero -A TandemRepeatAnnotator \</span><br><span class="line"></span>        -<span class="ruby">baq CALCULATE_AS_NECESSARY \</span><br><span class="line"></span>        -<span class="ruby">stand_call_conf <span class="number">30.0</span> \</span><br><span class="line"></span>        -<span class="ruby">stand_emit_conf <span class="number">10.0</span> \</span><br><span class="line"></span>        -<span class="ruby">glm SNP \</span><br><span class="line"></span>        -<span class="ruby">log ./log/sample.snp.raw.vcf.log</span></span><br></pre></td></tr></table></figure></p>
+<p>主要参数解释：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">A：                指定一个或者多个注释信息，最后输出到vcf文件中。</span><br><span class="line"></span>-<span class="ruby">XA：               指定不做哪些注释，最后不会输出到vcf文件中。</span><br><span class="line"></span>-<span class="ruby">D：                已知的snp文件。</span><br><span class="line"></span>-<span class="ruby">glm：              选择检测变异的类型。SNP表示只进行snp检测；INDEL表示只对indel进行检测；BOTH表示同时检测snp和indel。默认值是SNP。</span><br><span class="line"></span>-<span class="ruby">hets：             杂合度的值，用于计算先验概率。默认值是<span class="number">0</span>.<span class="number">001</span>。</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">maxAltAlleles:</span>     容许存在的最大alt allele的数目，默认值是<span class="number">6</span>。**这个参数要特别注意，不要轻易修改默认值**，程序设置的默认值几乎可以满足所有的分析，如果修改了可能会导致程序无法运行。</span><br><span class="line"></span>-<span class="ruby">mbq：              变异检测时，碱基的最小质量值。如果小于这个值，将不会对其进行变异检测。这个参数不适用于indel检测，默认值是<span class="number">17</span>。</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">minIndelCnt:</span>       在做indel calling的时候，支持一个indel的最少read数量。也就是说，如果同时有多少条reads同时支持一个候选indel时，软件才开始进行indel calling。降低这个值可以增加indel calling的敏感度，但是会增加耗费的时间和假阳性。</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">minIndelFrac:</span>      在做indel calling的时候，支持一个indel的reads数量占比对到该indel位置的所有reads数量的百分比。也就是说，只有同时满足-minIndelCnt和-minIndelFrac两个参数条件时，才会进行indel calling。</span><br><span class="line"></span>-<span class="ruby">onlyEmitSamples：  当指定这个参数时，只有指定的样本的变异检测结果会输出到vcf文件中。</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">stand_emit_conf:</span>   在变异检测过程中，所容许的最小质量值。只有大于等于这个设定值的变异位点会被输出到结果中。</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">stand_call_conf:</span>   在变异检测过程中，用于区分低质量变异位点和高质量变异位点的阈值。只有质量值高于这个阈值的位点才会被视为高质量的。低于这个质量值的变异位点会在输出结果中标注LowQual。在千人基因组计划第二阶段的变异检测时，利用<span class="number">35</span>x的数据进行snp calling的时候，当设置成<span class="number">50</span>时，有大概<span class="number">10</span>%的假阳性。</span><br><span class="line"></span>-<span class="ruby"><span class="symbol">dcov:</span>              这个参数用于控制检测变异数据的coverage(X)，<span class="number">4</span>X的数据可以设置为<span class="number">40</span>，大于<span class="number">30</span>X的数据可以设置为<span class="number">200</span>。</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2-InDel-calling"><a href="#2-InDel-calling" class="headerlink" title="(2). InDel calling"></a>(2). InDel calling</h4><p>eg:<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK.jar \</span><br><span class="line">        -<span class="ruby">R ref.fa \</span><br><span class="line"></span>        -<span class="ruby">T UnifiedGenotyper \</span><br><span class="line"></span>        -<span class="ruby">I sample.recal.bam \</span><br><span class="line"></span>        -<span class="ruby">o sample.indel.raw.vcf \</span><br><span class="line"></span>        -<span class="ruby">dcov <span class="number">200</span> \</span><br><span class="line"></span>        -<span class="ruby">A QualByDepth -A FisherStrand -A AlleleBalance -A Coverage -A MappingQualityZero -A TandemRepeatAnnotator \</span><br><span class="line"></span>        -<span class="ruby">baq CALCULATE_AS_NECESSARY \</span><br><span class="line"></span>        -<span class="ruby">stand_call_conf <span class="number">30.0</span> \</span><br><span class="line"></span>        -<span class="ruby">stand_emit_conf <span class="number">10.0</span> \</span><br><span class="line"></span>        -<span class="ruby">glm INDEL \</span><br><span class="line"></span>        -<span class="ruby">log ./log/sample.indel.raw.vcf.log</span></span><br></pre></td></tr></table></figure></p>
+<hr>
+<p>###附：###<br>以下均参考<a href="http://blog.sina.com.cn/s/blog_12d5e3d3c0101qu6r.html" target="_blank" rel="external">葡萄糖的博客</a>，自己没有测试：<br>转接上面的4.2变异检测<br><strong>变异检测</strong><br><strong>（1）Variant Calling</strong><br>GATK在这一步里面提供了两个工具进行变异检测——UnifiedGenotyper和HaplotypeCaller。其中HaplotypeCaller一直还在开发之中，包括生成的结果以及计算模型和命令行参数一直在变动，因此，目前使用比较多的还是UnifiedGenotyper。此外，HaplotypeCaller不支持Reduce之后的bam文件，因此，当选择使用HaplotypeCaller进行变异检测时，不需要进行Reduce reads。</p>
+<p>UnifiedGenotyper是集合多种变异检测方法而成的一种Variants Caller，既可以用于单个样本的变异检测，也可以用于群体的变异检测。UnifiedGenotyper使用贝叶斯最大似然模型，同时估计基因型和基因频率，最后对每一个样本的每一个变异位点和基因型都会给出一个精确的后验概率。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">java -jar GenomeAnalysisTK<span class="selector-class">.jar</span></span><br><span class="line">-glm BOTH</span><br><span class="line">-l INFO</span><br><span class="line">-R hg19<span class="selector-class">.fa</span></span><br><span class="line">-T UnifiedGenotyper</span><br><span class="line">-I ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">08</span>-<span class="number">3</span><span class="selector-class">.grp</span><span class="selector-class">.reduce</span><span class="selector-class">.bam</span></span><br><span class="line">-D dbsnp_137<span class="selector-class">.hg19</span><span class="selector-class">.vcf</span></span><br><span class="line">-o ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">10</span><span class="selector-class">.vcf</span></span><br><span class="line">-metrics ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">10</span><span class="selector-class">.metrics</span></span><br><span class="line">-stand_call_conf  <span class="number">10</span></span><br><span class="line">-stand_emit_conf  <span class="number">30</span></span><br></pre></td></tr></table></figure></p>
+<p>上述命令将对输入的bam文件中的所有样本进行变异检测，最后生成一个vcf文件，vcf文件中会包含所有样本的变异位点和基因型信息。但是现在所得到的结果是最原始的、没有经过任何过滤和校正的Variants集合。这一步产生的变异位点会有很高的假阳性，尤其是indel，因此，必须要进行进一步的筛选过滤。这一步还可以指定对基因组的某一区域进行变异检测，只需要增加一个参数 -L：target_interval.list，格式是bed格式文件。</p>
+<blockquote>
+<p><strong>注意：</strong><br>GATK进行变异检测的时候，是按照染色体排序顺序进行的（先call chr1，然后chr2，然后chr3…最后chrY），并非多条染色体并行检测的，因此，如果数据量比较大的话，建议分染色体分别进行，对性染色体的变异检测可以同常染色体方法。<br>大多数参数的默认值可以满足大多数研究的需求，因此，在做变异检测过程中，如果对参数意义不是很明确，不建议修改。</p>
+</blockquote>
+<p><strong>（2）对原始变异检测结果进行过滤（hard filter and VQSR）</strong><br>这一步的目的就是对上一步call出来的变异位点进行过滤，去掉不可信的位点。这一步可以有两种方法，一种是通过GATK的VariantFiltration，另一种是通过GATK的VQSR（变异位点质量值重新校正）进行过滤。</p>
+<p>通过GATK网站上提供的最佳方案可以看出，GATK是推荐使用VASR的，但使用VQSR数据量一定要达到要求，数据量太小无法使用高斯模型。还有，在使用VAQR时，indel和snp要分别进行。</p>
+<pre><code>VQSR原理介绍：
+这个模型是根据已有的真实变异位点（人类基因组一般使用HapMap3中的位点，以及这些位点在Omni 2.5M SNP芯片中出现的多态位点）来训练，最后得到一个训练好的能够很好的评估真伪的错误评估模型，可以叫他适应性错误评估模型。这个适应性的错误评估模型可以应用到call出来的原始变异集合中已知的变异位点和新发现的变异位点，进而去评估每一个变异位点发生错误的概率，最终会给出一个得分。这个得分最后会被写入vcf文件的INFO信息里，叫做VQSLOD，就是在训练好的混合高斯模型下，一个位点是真实的概率比上这个位点可能是假阳性的概率的log odds ratio（对数差异比），因此，可以定性的认为，这个值越大就越好。
+</code></pre><p>VQSR主要分两个步骤，这两个步骤会使用两个不同的工具：<strong>VariantRecalibrator</strong>和<strong>ApplyRecalibration</strong>。</p>
+<blockquote>
+<p> <strong>VariantRecalibrator:</strong>通过大量的高质量的已知变异集合的各个注释（包括很多种，后面介绍）的值来创建一个高斯混合模型，然后用于评估所有的变异位点。这个文件最后将生成一个recalibration文件。<br><strong>原理简单介绍:</strong> 这个模型首先要拿到真实变异数据集和上一步骤中得到的原始变异数据集的交集，然后对这些SNP值相对于具体注释信息的分布情况进行模拟，将这些变异位点进行聚类，最后根据聚类结果赋予所有变异位点相应的VQSLOD值。越接近聚类核心的变异位点得到的VQSLOD值越高。</p>
+<p><strong>ApplyRecalibration:</strong>这一步将模型的各个参数应用于原始vcf文件中的每一个变异位点，这时，每一个变异位点的注释信息列中都会出现一个VQSLOD值，然后模型会根据这个值对变异位点进行过滤，过滤后的信息会写在vcf文件的filter一列中。<br><strong>原理简单介绍:</strong>在VariantRecalibrator这一步中，每个变异位点已经得到了一个VQSLOD值了，同时，这些LOD值在训练集里也进行了排序。当你在这一步中设置一个tranche sensitivity的阈值（这个阈值一般是一个百分数，如设置成99%），那么，如果LOD值从大到小排序的话，这个程序就会认为在这个训练集中，LOD值在前99%的是可信的，当这个值低于这个阈值，就认为是错误的。最后，程序就会用这个标准来过滤上一步call出来的原始变异集合。如果LOD值超过这个阈值，在filter那一列就会显示PASS，如果低于这个值就会被过滤掉，但是这些位点仍然会显示在结果里面，只不过会在filter那一列标示出他所属于的tranche sensitivity 的名称。在设置tranche sensitivity 的阈值时，要兼顾敏感度和质量值。</p>
+</blockquote>
+<p><strong>对高斯混合模型生成图片的解释：</strong><br><img src="http://7xubqr.com1.z0.glb.clouddn.com/%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B%E7%94%9F%E6%88%90%E5%9B%BE%E7%89%87.jpg" alt="此处输入图片的描述"><br>在VariantRecalibrator这一步，程序会通过已知位点来训练概率模型，训练完成后会生成一组图片，而且每对注释信息都对应一组图片（上图），这组图片能够帮助我们理解一个概率模型是否与我们的数据相匹配，也就是说这个模型能不能很好的区分假阳性和真实位点。</p>
+<p>上图是第一步完成后生成的一个报告的一部分，图中只表示了一对注释所对应的图。左上角的图表示的是适合当前数据的概率密度图，绿色区域表示高质量变异位点所在位置，红色区域表示低质量概率分布区域。如果变异位点分布在红色区域，则会被过滤掉。右上角图中红色的点表示在经过VQSR之后被过滤掉的变异位点，黑色的表示的是留下来的。红色的表示的都是没有达到所设定的tranche sensitivity 阈值的点。左下角的图表示的是用来训练模型的点，绿色的点表示通过训练进入到ApplyRecalibration的变异位点，紫色的点则表示质量值很低的，没有达到质量要求的点。右下角的图表示的是已知的和新发现的变异位点的分布，红色的点表示新发现的变异位点，而蓝色的点表示的是已知的变异位点，看这幅图就是看这两个注释信息能不能很好的区分已知的点（大部分是真实的）和未知的点（大部分是假阳性）。</p>
+<p>从图中可以看出，这个模拟结果可以很好的将真实的变异位点和假阳性变异位点分开（左下图），形成了明显的界限，也就是说，如果一个变异位点的这两个注释值，只要有一个落在了界限之外，就会被过滤掉。最主要的是要看右边两个图片，只要能很好的区分开novel和known以及filtered和retained就可以。其实在如何选择注释值存在一定得主观性，因此，在做VariantRecalibrator时可以做两次，第一次尽可能的多的选择这些注释值，第一遍跑完之后，选择几个区分好的，再做一次VariantRecalibrator，然后再做ApplyRecalibration。具体每个注释值得意义可以参考：<br><a href="http://www.broadinstitute.org/gatk/guide/tagged?tag=annotation这个网址中的内容，有每个注释的详细信息的链接。" target="_blank" rel="external">http://www.broadinstitute.org/gatk/guide/tagged?tag=annotation这个网址中的内容，有每个注释的详细信息的链接。</a></p>
+<p><strong>tranche值的设定</strong><br>前面提到了，这个值得设定是用来在后续的ApplyRecalibration中如何根据这个阈值来过滤变异位点的，也就是说，如果这个值设定的比较高的话，那么最后留下来的变异位点就会多，但同时假阳性的位点也会相应增加；如果设定的低的话，虽然假阳性会减少，但是会丢失很多真实的位点。因此，跟选择注释时一样，可以run两遍VariantRecalibrator，第一遍的时候多写几个阈值，第一遍跑完之后看结果，看那个阈值好，选择一个最好的阈值，再run一遍VariantRecalibrator。至于说怎么区分好坏，有几个标准：</p>
+<pre><code>1. 看结果中已知变异位点与新发现变异位点之间的比例，这个比例不要太大，因为大多数新发现的变异都是假阳性，如果太多的话，可能假阳性的比例就比较大；
+2. 看保留的变异数目，这个就要根据具体的需求进行选择了。
+3. 看TI/TV值，对于人类全基因组，这个值应该在2.15左右，对于外显子组，这个值应该在3.2左右，不要太小或太大，越接近这个数值越好，这个值如果太小，说明可能存在比较多的假阳性。
+</code></pre><p>千人中所选择的tranche值是99，仅供参考。</p>
+<blockquote>
+<p><strong>注意：</strong><br>Indel不支持tranche值的选择，另外，一部分注释类型在做indel的校正时也不支持，具体信息可以详查GATK网站。<br>当数据量太小时，可能高斯模型不会运行，因为变异位点数满足不了模型的统计需求。这时候可以通过降低–maxGaussian的值，让程序运行。这个值表示的是程序将变异位点分成的最大的组数，降低这个值让程序把变异位点聚类到更少的组里面，使每个组中的变异位点数增加来满足统计需求，但是这样做降低程序分辨真伪的能力。因此，在运行程序的时候，要对各方面进行权衡。</p>
+</blockquote>
+<p>eg:<br><strong>对SNP结果进行校正</strong><br><strong>第一步：</strong><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK.jar \</span><br><span class="line">        -<span class="ruby">R ref.fa \</span><br><span class="line"></span>        -<span class="ruby">-maxGaussians <span class="number">4</span> \</span><br><span class="line"></span>        -<span class="ruby">numBad <span class="number">10000</span> (这个参数在最新的GATK版本里面已经没有了，用的时候注意版本，<span class="number">2.8</span>.<span class="number">1</span>里面不用自己设置这个参数)</span><br><span class="line"></span>        -<span class="ruby">T VariantRecalibrator \</span><br><span class="line"></span>        -<span class="ruby">mode SNP \</span><br><span class="line"></span>        -<span class="ruby">input ChrALL.<span class="number">100</span>.sam.recal.<span class="number">10</span>.vcf \</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span>hapmap,known=<span class="literal">false</span>,training=<span class="literal">true</span>,truth=<span class="literal">true</span>,prior=<span class="number">15.0</span> hapmap_3.<span class="number">3</span>.hg19.vcf</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span>omni,known=<span class="literal">false</span>,training=<span class="literal">true</span>,truth=<span class="literal">false</span>,prior=<span class="number">12.0</span> <span class="number">1000</span>G_omni2.<span class="number">5</span>.hg19.vcf</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span><span class="number">1000</span>G,known=<span class="literal">false</span>,training=<span class="literal">true</span>,truth=<span class="literal">false</span>,prior=<span class="number">10.0</span> <span class="number">1000</span>G_phase1.snps.high_confidence.hg19.vcf</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span>dbsnp,known=<span class="literal">true</span>,training=<span class="literal">false</span>,truth=<span class="literal">false</span>,prior=<span class="number">2.0</span> dbsnp_137.hg19.vcf</span><br><span class="line"></span>        -<span class="ruby">an QD</span><br><span class="line"></span>        -<span class="ruby">an HaplotypeScore</span><br><span class="line"></span>        -<span class="ruby">an MQRankSum</span><br><span class="line"></span>        -<span class="ruby">an ReadPosRankSum</span><br><span class="line"></span>        -<span class="ruby">an FS</span><br><span class="line"></span>        -<span class="ruby">an MQ</span><br><span class="line"></span>        -<span class="ruby">an InbreedingCoeff</span><br><span class="line"></span>        -<span class="ruby">recalFile hg19.vcf.snp_11_Q1<span class="number">0</span>.recal</span><br><span class="line"></span>        -<span class="ruby">tranchesFile hg19.vcf.snp_11_Q1<span class="number">0</span>.tranches</span><br><span class="line"></span>        -<span class="ruby">rscriptFile hg19.vcf.snp_11.plot_Q1<span class="number">0</span>.R</span><br><span class="line"></span>        -<span class="ruby">nt <span class="number">4</span></span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">90.0</span></span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">93.0</span></span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">95.0</span></span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">97.0</span></span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">99.0</span></span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">99.9</span></span></span><br></pre></td></tr></table></figure></p>
+<p>先run一下上面的代码，这一步可以尽可能多的设置注释类型和tranche的值，然后根据这次跑出来的结果选择出最好的注释类型和tranche值之后，再次运行VariantRecalibrator。<br><strong>第二步：</strong><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK.jar \</span><br><span class="line">        -<span class="ruby">R hg19.fa \</span><br><span class="line"></span>        -<span class="ruby">-maxGaussians <span class="number">4</span> \</span><br><span class="line"></span>        -<span class="ruby">numBad <span class="number">10000</span> \</span><br><span class="line"></span>        -<span class="ruby">T VariantRecalibrator \</span><br><span class="line"></span>        -<span class="ruby">mode SNP \</span><br><span class="line"></span>        -<span class="ruby">input ChrALL.<span class="number">100</span>.sam.recal.<span class="number">10</span>.vcf \</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span>hapmap,known=<span class="literal">false</span>,training=<span class="literal">true</span>,truth=<span class="literal">true</span>,prior=<span class="number">15.0</span> hapmap_3.<span class="number">3</span>.hg19.vcf \</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span>omni,known=<span class="literal">false</span>,training=<span class="literal">true</span>,truth=<span class="literal">false</span>,prior=<span class="number">12.0</span> <span class="number">1000</span>G_omni2.<span class="number">5</span>.hg19.vcf \</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span><span class="number">1000</span>G,known=<span class="literal">false</span>,training=<span class="literal">true</span>,truth=<span class="literal">false</span>,prior=<span class="number">10.0</span> <span class="number">1000</span>G_phase1.snps.high_confidence.hg19.vcf \</span><br><span class="line"></span>        -<span class="ruby"><span class="symbol">resource:</span>dbsnp,known=<span class="literal">true</span>,training=<span class="literal">false</span>,truth=<span class="literal">false</span>,prior=<span class="number">2.0</span> dbsnp_137.hg19.vcf \</span><br><span class="line"></span>        -<span class="ruby">an HaplotypeScore \</span><br><span class="line"></span>        -<span class="ruby">an MQRankSum \</span><br><span class="line"></span>        -<span class="ruby">-TStranche <span class="number">97.0</span> \</span><br><span class="line"></span>        -<span class="ruby">recalFile hg19.vcf.snp_11_Q1<span class="number">0</span>.recal \</span><br><span class="line"></span>        -<span class="ruby">tranchesFile hg19.vcf.snp_11_Q1<span class="number">0</span>.tranches \</span><br><span class="line"></span>        -<span class="ruby">rscriptFile hg19.vcf.snp_11.plot_Q1<span class="number">0</span>.R \</span><br><span class="line"></span>        -<span class="ruby">nt <span class="number">4</span></span></span><br></pre></td></tr></table></figure></p>
+<p>这一步run出来的结果可以直接用于下一步的ApplyRecalibration。<br><strong>第三步</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R hg19<span class="selector-class">.fa</span> \</span><br><span class="line">        -T ApplyRecalibration \</span><br><span class="line">        -mode SNP \</span><br><span class="line">        -<span class="selector-tag">input</span> hg19<span class="selector-class">.recal_10_Q10</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -tranchesFile hg19<span class="selector-class">.vcf</span><span class="selector-class">.snp_12_Q10-2</span><span class="selector-class">.tranches</span> \</span><br><span class="line">        -recalFile hg19<span class="selector-class">.vcf</span><span class="selector-class">.snp_12_Q10-2</span><span class="selector-class">.recal</span> \</span><br><span class="line">        -o hg19<span class="selector-class">.snp</span><span class="selector-class">.filter</span><span class="selector-class">.t97</span><span class="selector-class">.Q10_13</span><span class="selector-class">.snp</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        --ts_filter_level <span class="number">97</span></span><br></pre></td></tr></table></figure></p>
+<p>最终生成的hg19.snp.filter.t97.Q10_13.snp.vcf这个文件中的SNP位点已经全部经过校正过滤，INDEL位点还是原始数据，需要对INDEL再进行一次校正过滤。</p>
+<p><strong>对INDEL结果进行校正，与SNP基本一致，只不过INDEL需要使用的known resource不一样</strong><br><strong>第一步：</strong></p>
+<pre><code>同SNP 多选择一些注释类型，但是不用选择tranche值,tranche值是专门为SNP设定的，即使设定了这个值（2.4版本是可以计算这个的，以后就不计算了），计算出来也都是错的，这个在indel里不需要考虑。
+</code></pre><p><strong>第二步：</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -T VariantRecalibrator \</span><br><span class="line">        -R hg19<span class="selector-class">.fa</span> \</span><br><span class="line">        -mode INDEL \</span><br><span class="line">        --maxGaussians <span class="number">4</span> \</span><br><span class="line">        -std <span class="number">10.0</span> \</span><br><span class="line">        -percentBad <span class="number">0.12</span> \</span><br><span class="line">        -<span class="selector-tag">input</span> ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">10</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -resource:mills,known=true,training=true,truth=true,prior=<span class="number">12.0</span> Mills_and_1000G_gold_standard<span class="selector-class">.indels</span><span class="selector-class">.hg19</span> \</span><br><span class="line">        -an MQ \</span><br><span class="line">        -an FS \</span><br><span class="line">        -an InbreedingCoeff \</span><br><span class="line">        -recalFile ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">10</span><span class="selector-class">.indel</span><span class="selector-class">.recal</span> \</span><br><span class="line">        -tranchesFile ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">10</span><span class="selector-class">.indel</span><span class="selector-class">.tranche</span> \</span><br><span class="line">        -rscriptFile ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">10</span><span class="selector-class">.indel</span><span class="selector-class">.R</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第三步：</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -T ApplyRecalibration \</span><br><span class="line">        -R hg19<span class="selector-class">.fa</span> \</span><br><span class="line">        -mode INDEL \</span><br><span class="line">        -<span class="selector-tag">input</span> hg19<span class="selector-class">.snp</span><span class="selector-class">.filter</span><span class="selector-class">.t97</span><span class="selector-class">.Q10_13</span><span class="selector-class">.snp</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -recalFile ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">11</span><span class="selector-class">.indel</span><span class="selector-class">.recal</span> \</span><br><span class="line">        -tranchesFile ChrALL.<span class="number">100</span><span class="selector-class">.sam</span><span class="selector-class">.recal</span>.<span class="number">11</span><span class="selector-class">.indel</span><span class="selector-class">.tranche</span> \</span><br><span class="line">        -o hg19<span class="selector-class">.snp</span><span class="selector-class">.filter</span><span class="selector-class">.t97</span><span class="selector-class">.Q10_13</span><span class="selector-class">.both</span><span class="selector-class">.vcf</span></span><br></pre></td></tr></table></figure></p>
+<p>最后得到的hg19.snp.filter.t97.Q10_13.both.vcf文件，就是我们最终想得到的过滤好的变异集合。</p>
+<p>主要参数解释：</p>
+<p><strong>VariantRecalibrator</strong><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">badLodCutoff           当LOD得分低于这个值的时候，就用于构建高斯混合模型的bad variants。默认值是-<span class="number">5</span>。</span><br><span class="line"></span>-<span class="ruby">maxNumTrainingData     构建高斯模型过程中，用于训练的最大位点数目。如果超过这个数目，将被随机删除。默认值是<span class="number">2500000</span>。</span><br><span class="line"></span>-<span class="ruby">minNumBad              构建高斯模型的bad variants时的最少低质量值得位点数。</span><br><span class="line"></span>-<span class="ruby">recalFile              用于ApplyRecalibration的输出文件。</span><br><span class="line"></span>-<span class="ruby">resource               已知的变异信息。</span><br><span class="line"></span>-<span class="ruby">rscriptFile            结果中生成图片的脚本。</span><br><span class="line"></span>-<span class="ruby">tranchesFile           用于ApplyRecalibration的tranche结果输出文件。</span><br><span class="line"></span>-<span class="ruby">tranche                设置tranche阈值。</span><br><span class="line"></span>-<span class="ruby">an                     选择填加注释信息。</span></span><br></pre></td></tr></table></figure></p>
+<p>更多其他参数参考：<br><a href="http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_variantrecalibration_VariantRecalibrator.html" target="_blank" rel="external">http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_variantrecalibration_VariantRecalibrator.html</a></p>
+<p><strong>ApplyRecalibration</strong><br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">ef                     输出结果中不显示被过滤掉的位点。</span><br><span class="line"></span>-<span class="ruby">lodCutoff              VQSLOD值低于这个值就过滤掉。</span><br><span class="line"></span>-<span class="ruby">recalFile              上一步生成的recalFile。</span><br><span class="line"></span>-<span class="ruby">tranchesFile           上一步生成的tranchesFile。</span><br><span class="line"></span>-<span class="ruby">ts_filter_level        上一步中确定的tranche值。</span></span><br></pre></td></tr></table></figure></p>
+<p>更多其他参数请参考：<a href="http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_variantrecalibration_ApplyRecalibration.html" target="_blank" rel="external">http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_variantrecalibration_ApplyRecalibration.html</a></p>
+<p>另外，关于如何选择resource data可以参考：<a href="http://www.broadinstitute.org/gatk/guide/article?id=1259" target="_blank" rel="external">http://www.broadinstitute.org/gatk/guide/article?id=1259</a></p>
+<p>如果要分析的数据集不符合进行VQSR的标准，可以进行hard filter，这一步将使用GATK中的VariantFiltration工具来完成。具体使用方法参考：<a href="http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_filters_VariantFiltration.html" target="_blank" rel="external">http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_filters_VariantFiltration.html</a></p>
+<p>最后生成的vcf文件的格式说明，即每一列所代表的的内容，可参考下面的网站，有详细的说明：<a href="http://www.broadinstitute.org/gatk/guide/article?id=1268" target="_blank" rel="external">http://www.broadinstitute.org/gatk/guide/article?id=1268</a></p>
+<p>其实到这里就已经完成了变异检测的所有步骤，最后生成的hg19.snp.filter.t97.Q10_13.both.vcf文件就可以用于你的下游分析了。</p>
+<hr>
+<h3 id="4-4-初步分析"><a href="#4-4-初步分析" class="headerlink" title="4.4 初步分析"></a>4.4 初步分析</h3><p>这一步主要是对上面所得到的最终vcf中的结果进行一些初步的分析，比如计算这些变异位点在dbsnp中的比例、Ti/Tv的比例、每个样本中的snp数量……。此外，还可以对变异位点的同义/非同义突变进行统计，识别是否为CpG位点以及氨基酸的简并信息等。这一步主要是利用GATK中的VariantEval来完成。<br>需要注意的是，有些计算内容不能同时进行，例如AlleleCount和VariantSummary或者Sample和VariantSummary。如果选择了这样的组合方式，程序就会报错。但是GATK并没有告诉我们到底哪些不能同时运行，所以当选择计算内容的时候可以先做一下测试。<br>e.g.<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ java  -jar GenomeAnalysisTK<span class="selector-class">.jar</span> \</span><br><span class="line">        -R hg19<span class="selector-class">.fa</span> \</span><br><span class="line">        -T VariantEval \</span><br><span class="line">        --eval hg19<span class="selector-class">.snp</span><span class="selector-class">.filter</span><span class="selector-class">.t97</span><span class="selector-class">.Q10_13</span><span class="selector-class">.both</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -D dbsnp_137<span class="selector-class">.hg19</span><span class="selector-class">.vcf</span> \</span><br><span class="line">        -o hg19<span class="selector-class">.PASS</span><span class="selector-class">.Eval_15_Final</span><span class="selector-class">.gatkreport</span></span><br></pre></td></tr></table></figure></p>
+<p>主要参数解释：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby">-eval          输入要进行summary的文件，也就是hg19.snp.filter.t97.Q10_13.both.vcf。</span><br><span class="line"></span>-<span class="ruby">EV             选择模块计算相应的分析内容，。</span><br><span class="line"></span>-<span class="ruby">-list          列出可供选择的计算模块。</span><br><span class="line"></span>-<span class="ruby">noEV           不是用默认的模块，只计算用-EV选定的模块。</span></span><br></pre></td></tr></table></figure></p>
+<p>更多其他参数请参考：<a href="http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_varianteval_VariantEval.html" target="_blank" rel="external">http://www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_sting_gatk_walkers_varianteval_VariantEval.html</a></p>
+<p>参考：<br>糗世界：<a href="http://blog.qiubio.com:8080/archives/3207" target="_blank" rel="external">http://blog.qiubio.com:8080/archives/3207</a><br>葡萄糖的博客：<a href="http://blog.sina.com.cn/s/blog_12d5e3d3c0101qu6e.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_12d5e3d3c0101qu6e.html</a><br>imitosis的博客：<a href="http://blog.sina.com.cn/s/blog_681aaa550101bhdc.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_681aaa550101bhdc.html</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/samtools/" rel="tag">#samtools</a>
+          
+            <a href="/tags/software/" rel="tag">#software</a>
+          
+            <a href="/tags/bioinformatics/" rel="tag">#bioinformatics</a>
+          
+            <a href="/tags/GATK/" rel="tag">#GATK</a>
+          
+            <a href="/tags/bwa/" rel="tag">#bwa</a>
+          
+            <a href="/tags/picard/" rel="tag">#picard</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/24/SAMtools和BCFtools工具详解/" rel="next" title="SAMtools和BCFtools工具详解">
+                <i class="fa fa-chevron-left"></i> SAMtools和BCFtools工具详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/25/变异检测（BWA-SAMtools-picard-GATK）/"
+           data-title="变异检测（BWA+SAMtools+picard+GATK）" data-url="http://yoursite.com/2016/05/25/变异检测（BWA-SAMtools-picard-GATK）/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xubqr.com1.z0.glb.clouddn.com/avatar.png"
+               alt="starsyi" />
+          <p class="site-author-name" itemprop="name">starsyi</p>
+          <p class="site-description motion-element" itemprop="description">自古求真皆寂寞，唯挑心灯伴夜霭</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/starsyi" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2436657131" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:yxx285223595@163.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-简介"><span class="nav-number">1.</span> <span class="nav-text">一、 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、GATK的使用流程"><span class="nav-number">2.</span> <span class="nav-text">二、GATK的使用流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-准备工作"><span class="nav-number">3.</span> <span class="nav-text">三、 准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-软件下载安装"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 软件下载安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-软件安装"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 软件安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-参考基因组和annotation下载"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 参考基因组和annotation下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-R设置"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 R设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、GATK使用"><span class="nav-number">4.</span> <span class="nav-text">四、GATK使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-原始数据处理"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 原始数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-对原始下机fastq文件进行过滤和比对（mapping"><span class="nav-number">4.1.1.</span> <span class="nav-text">(1). 对原始下机fastq文件进行过滤和比对（mapping)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对sam文件进行进行重新排序（reorder）"><span class="nav-number">4.1.2.</span> <span class="nav-text">(2). 对sam文件进行进行重新排序（reorder）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Merge"><span class="nav-number">4.1.3.</span> <span class="nav-text">(6). Merge</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-Duplicates-Marking"><span class="nav-number">4.1.4.</span> <span class="nav-text">(7). Duplicates Marking</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-要对上一步得到的结果生成索引文件"><span class="nav-number">4.1.5.</span> <span class="nav-text">(8). 要对上一步得到的结果生成索引文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-Local-realignment-around-indels"><span class="nav-number">4.1.6.</span> <span class="nav-text">(9). Local realignment around indels</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-Base-quality-score-recalibration"><span class="nav-number">4.1.7.</span> <span class="nav-text">(10). Base quality score recalibration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-分析和评估BQSR结果"><span class="nav-number">4.1.8.</span> <span class="nav-text">(11). 分析和评估BQSR结果</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-Reduce-bam-file"><span class="nav-number">4.1.9.</span> <span class="nav-text">(12).Reduce bam file</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-变异检测"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 变异检测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-SNP-Calling"><span class="nav-number">4.2.1.</span> <span class="nav-text">(1). SNP Calling</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-InDel-calling"><span class="nav-number">4.2.2.</span> <span class="nav-text">(2). InDel calling</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-初步分析"><span class="nav-number">4.3.</span> <span class="nav-text">4.4 初步分析</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.05 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">starsyi
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cspan id='cnzz_stat_icon_1259228303'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259228303' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"starsyi"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '/js/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
