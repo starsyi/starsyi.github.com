@@ -4,6 +4,16 @@
   
     
     <entry>
+      <title><![CDATA[Diary 2016-05-31]]></title>
+      <url>http://yoursite.com/2016/05/31/Diary-2016-05-31/</url>
+      <content type="html"><![CDATA[<p>This is my first diary in my Blogs. I’ll continue to write my diary in English.<br>To improve my English level, I must keep remembering the words, listen to TED or speech and write the diary.</p>
+<p>Today morning, I got up at 7:00 a.m. After a simple wash gargle, then I got out.   It’s really a bad thing that I ate a bowl of Wuhan hot-dry noodles, due to the  aunt of mensa haven’t  caught my words. It’s so dry that I ate hardly. But during I went to the lab, I saw a piece of micro garden, very beautiful. May I haven’t seen the campus for a long time, many changes is going, But I missed. Here are some pictures I took when I passed by.<br><img src="http://7xubqr.com1.z0.glb.clouddn.com/PIC_20160531_075025_731.jpg" alt="Beside Shaw building"><br>From here We can see a green lawn, flowers, small trees, and Animal science Building.<br><img src="http://7xubqr.com1.z0.glb.clouddn.com/PIC_20160531_074856_219.jpg" alt="此处输入图片的描述"></p>
+<p><img src="http://7xubqr.com1.z0.glb.clouddn.com/PIC_20160531_074821_B6F.jpg" alt="此处输入图片的描述"></p>
+<p><img src="http://7xubqr.com1.z0.glb.clouddn.com/PIC_20160531_074932_66B.jpg" alt="此处输入图片的描述"><br>Of course, more than these micro garden, maybe I need to take more pictures of them and do a project.</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[变异检测（BWA+SAMtools+picard+GATK）]]></title>
       <url>http://yoursite.com/2016/05/25/%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B%EF%BC%88BWA-SAMtools-picard-GATK%EF%BC%89/</url>
       <content type="html"><![CDATA[<h2 id="一、-简介"><a href="#一、-简介" class="headerlink" title="一、 简介"></a>一、 简介</h2><p>首先说说GATK可以做什么。它主要用于从sequencing 数据中进行variant calling，包括SNP、INDEL。比如现在风行的exome sequencing找variant，一般通过BWA+GATK的pipeline进行数据分析。<br>要run GATK，首先得了解它的网站(<a href="http://www.broadinstitute.org/gatk/)。" target="_blank" rel="external">http://www.broadinstitute.org/gatk/)。</a></p>
