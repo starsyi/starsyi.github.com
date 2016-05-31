@@ -4,6 +4,35 @@
 
     
   <url>
+    <loc>http://yoursite.com/2016/05/31/%E9%9D%9Eroot%E7%94%A8%E6%88%B7perl-GD%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2016-05-31T12:46:17.580Z</lastmod>
+    <data>
+        <display>
+        <title>非root用户perl GD模块的安装</title>
+        <pubTime>2016-05-31T12:45:03.000Z</pubTime>
+        
+        <tag>software</tag>
+         
+        <tag>GD</tag>
+         
+        <tag>libgd</tag>
+         
+        <tag>perl</tag>
+         
+         
+           
+             
+              <breadCrumb title="perl" url="http://yoursite.com/categories/perl/"/>
+          
+             
+              <breadCrumb title="software" url="http://yoursite.com/categories/perl/software/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2016/05/31/Diary-2016-05-31/</loc>
     <lastmod>2016-05-31T04:04:45.193Z</lastmod>
     <data>
@@ -31,11 +60,11 @@
         <title>变异检测（BWA+SAMtools+picard+GATK）</title>
         <pubTime>2016-05-25T14:31:42.000Z</pubTime>
         
-        <tag>bwa</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>bwa</tag>
          
         <tag>samtools</tag>
          
@@ -113,11 +142,11 @@
         <title>SAM文件格式说明</title>
         <pubTime>2016-05-24T09:05:47.000Z</pubTime>
         
+        <tag>sam</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>sam</tag>
          
          
            
@@ -137,11 +166,11 @@
         <title>BWA 命令详解</title>
         <pubTime>2016-05-24T07:49:52.000Z</pubTime>
         
-        <tag>bwa</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>bwa</tag>
          
          
            

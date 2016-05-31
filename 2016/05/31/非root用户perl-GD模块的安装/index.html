@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Stasyi, Bioinformation" />
+  <meta name="keywords" content="software,GD,libgd,perl," />
 
 
 
@@ -86,15 +86,22 @@
 
 
 
-<meta name="description" content="自古求真皆寂寞，唯挑心灯伴夜霭">
-<meta property="og:type" content="website">
-<meta property="og:title" content="寂寞先生">
-<meta property="og:url" content="http://yoursite.com/tags/GATK/index.html">
+<meta name="description" content="一、 简介使用perl的我们都知道，很多模块的都依赖于GD模块，所以把GD模块安装好很重要。首先我们要认识，GD模块是干什么的：GD模块是一个用来动态创建图像的开放源码库。他是用C语言编写的，它能够读写很多不同的图像文件，GD也通常用于生成图表、图形、缩略图和许多其他的。这样大家知道他是干嘛用的了
+二、 下载安装下载然后，他的官网：LibGD下载地址也可以在里面找到。
+###安装###在安装GD模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非root用户perl GD模块的安装">
+<meta property="og:url" content="http://yoursite.com/2016/05/31/非root用户perl-GD模块的安装/index.html">
 <meta property="og:site_name" content="寂寞先生">
-<meta property="og:description" content="自古求真皆寂寞，唯挑心灯伴夜霭">
+<meta property="og:description" content="一、 简介使用perl的我们都知道，很多模块的都依赖于GD模块，所以把GD模块安装好很重要。首先我们要认识，GD模块是干什么的：GD模块是一个用来动态创建图像的开放源码库。他是用C语言编写的，它能够读写很多不同的图像文件，GD也通常用于生成图表、图形、缩略图和许多其他的。这样大家知道他是干嘛用的了
+二、 下载安装下载然后，他的官网：LibGD下载地址也可以在里面找到。
+###安装###在安装GD模">
+<meta property="og:updated_time" content="2016-05-31T12:46:17.580Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="寂寞先生">
-<meta name="twitter:description" content="自古求真皆寂寞，唯挑心灯伴夜霭">
+<meta name="twitter:title" content="非root用户perl GD模块的安装">
+<meta name="twitter:description" content="一、 简介使用perl的我们都知道，很多模块的都依赖于GD模块，所以把GD模块安装好很重要。首先我们要认识，GD模块是干什么的：GD模块是一个用来动态创建图像的开放源码库。他是用C语言编写的，它能够读写很多不同的图像文件，GD也通常用于生成图表、图形、缩略图和许多其他的。这样大家知道他是干嘛用的了
+二、 下载安装下载然后，他的官网：LibGD下载地址也可以在里面找到。
+###安装###在安装GD模">
 
 
 
@@ -112,7 +119,7 @@
   };
 </script>
 
-  <title> 标签: GATK | 寂寞先生 </title>
+  <title> 非root用户perl GD模块的安装 | 寂寞先生 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 	
 	<!----------- add Fork me on Github ------------>
@@ -276,53 +283,218 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        GATK
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                非root用户perl GD模块的安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-31T20:45:03+08:00" content="2016-05-31">
+              2016-05-31
+            </time>
+          </span>
+		  
+		
+			<span id="busuanzi_container_page_pv">&nbsp;&nbsp;|&nbsp;&nbsp;阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/perl/" itemprop="url" rel="index">
+                    <span itemprop="name">perl</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/perl/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/31/非root用户perl-GD模块的安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/31/非root用户perl-GD模块的安装/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="一、-简介"><a href="#一、-简介" class="headerlink" title="一、 简介"></a>一、 简介</h2><p>使用perl的我们都知道，很多模块的都依赖于GD模块，所以把GD模块安装好很重要。<br>首先我们要认识，GD模块是干什么的：<br>GD模块是一个用来动态创建图像的开放源码库。他是用C语言编写的，它能够读写很多不同的图像文件，GD也通常用于生成图表、图形、缩略图和许多其他的。这样大家知道他是干嘛用的了</p>
+<h2 id="二、-下载安装"><a href="#二、-下载安装" class="headerlink" title="二、 下载安装"></a>二、 下载安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><p>然后，他的官网：<a href="http://libgd.github.io/" target="_blank" rel="external">LibGD</a><br>下载地址也可以在里面找到。</p>
+<p>###安装###<br>在安装GD模块之前，你一定要安装好libgd这个安装包，libgd的安装也可能需要其他的很多软件，所以你的系统如果没有这些包的话，你可能要一个个安装：<br><strong>1. 安装freetype：</strong><br>官网地址：<a href="https://www.freetype.org/download.html" target="_blank" rel="external">这里</a><br>下载地址：<a href="http://ftp.twaren.net/Unix/NonGNU//freetype/freetype-2.6.3.tar.bz2" target="_blank" rel="external">这里</a>（V2.6.3）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ wget </span><br><span class="line">$ tar jxf freetype-2.6.3.tar.bz2</span><br><span class="line">$ <span class="built_in">cd</span> freetype-2.6.3/</span><br><span class="line">./configure --prefix=/your/<span class="built_in">local</span>/path/freetype --enable-shared</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p><strong>2. 安装libpng：</strong><br>官网地址：<a href="http://www.libpng.org/" target="_blank" rel="external">这里</a><br>下载地址：<a href="http://jaist.dl.sourceforge.net/project/libpng/libpng16/1.6.21/libpng-1.6.21.tar.gz" target="_blank" rel="external">这里</a>（v1.6.21）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar zxf libpng-1.6.21.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> libpng-1.6.21/</span><br><span class="line">$ ./configure --prefix=/your/<span class="built_in">local</span>/path/png --enable-shared</span><br><span class="line">$ make  &amp;&amp; make  install</span><br></pre></td></tr></table></figure></p>
+<p><strong>3. 安装jpeg：</strong><br>官网地址：<a href="http://www.ijg.org/" target="_blank" rel="external">这里</a><br>下载地址：<a href="http://www.ijg.org/files/jpegsrc.v9b.tar.gz" target="_blank" rel="external">这里</a>（v9b）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar zxf jpegsrc.v9b.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> jpeg-9b/</span><br><span class="line">$ ./configure --prefix=/your/<span class="built_in">local</span>/path/jpeg --enable-shared</span><br><span class="line">$ make  &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p><strong>4. 安装zlib：</strong><br>官网地址：<a href="http://zlib.net/" target="_blank" rel="external">这里</a><br>下载地址：<a href="http://ufpr.dl.sourceforge.net/project/libpng/zlib/1.2.8/zlib-1.2.8.tar.gz" target="_blank" rel="external">这里</a>（v1.2.8）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar xf zlib-1.2.8.tar.gz</span><br><span class="line">$ <span class="built_in">cd</span> zlib-1.2.8/</span><br><span class="line">$ ./configure --prefix=/your/<span class="built_in">local</span>/path/zlib</span><br><span class="line">$  make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p><strong>5. 安装libgd：</strong><br>官网地址：<a href="http://libgd.github.io/" target="_blank" rel="external">这里</a><br>下载地址：<a href="https://github.com/libgd/libgd/releases/download/gd-2.2.1/libgd-2.2.1.tar.gz" target="_blank" rel="external">这里</a>（v2.2.1）<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ tar jxf libgd-2.2.1.tar.gz</span><br><span class="line"><span class="variable">$cd</span> libgd-2.2.1/</span><br><span class="line">$./configure --prefix=/your/<span class="built_in">local</span>/path/gd --enable-shared --with-jpeg=/your/<span class="built_in">local</span>/path/jpeg --with-freetype=/your/<span class="built_in">local</span>/path/freetype --with-png=/your/<span class="built_in">local</span>/path/png --with-zlib=/your/<span class="built_in">local</span>/path/zlib</span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p><strong>当然最重要的事，就是将他们加入你的环境变量中。</strong></p>
+<p>接下里你就可以轻松安装GD了，这你可以通过cpanan安装GD模块了，通过cpan就可以安装：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan -i GD</span><br></pre></td></tr></table></figure></p>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/05/25/变异检测（BWA-SAMtools-picard-GATK）/" itemprop="url">
-              
-                <span itemprop="name">变异检测（BWA+SAMtools+picard+GATK）</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-05-25T22:31:42+08:00"
-              content="2016-05-25" >
-          05-25
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/software/" rel="tag">#software</a>
+          
+            <a href="/tags/GD/" rel="tag">#GD</a>
+          
+            <a href="/tags/libgd/" rel="tag">#libgd</a>
+          
+            <a href="/tags/perl/" rel="tag">#perl</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/31/Diary-2016-05-31/" rel="next" title="Diary 2016-05-31">
+                <i class="fa fa-chevron-left"></i> Diary 2016-05-31
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/31/非root用户perl-GD模块的安装/"
+           data-title="非root用户perl GD模块的安装" data-url="http://yoursite.com/2016/05/31/非root用户perl-GD模块的安装/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -342,8 +514,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xubqr.com1.z0.glb.clouddn.com/avatar.png"
@@ -429,6 +610,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-简介"><span class="nav-number">1.</span> <span class="nav-text">一、 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、-下载安装"><span class="nav-number">2.</span> <span class="nav-text">二、 下载安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -553,6 +745,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
