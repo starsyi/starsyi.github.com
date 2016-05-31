@@ -11,22 +11,22 @@
 <table>
 <thead>
 <tr>
-<th>软件</th>
-<th>介绍</th>
+<th style="text-align:left">软件</th>
+<th style="text-align:left">介绍</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><a href="http://211.69.141.1/files/5241000000563723/120.52.72.52/circos.ca/c3pr90ntcsf0/distribution/circos-0.69-2.tgz" target="_blank" rel="external">circos-0.69-2.tgz</a></td>
-<td>这是用来绘图的主要的安装包程序文件（版本根据自己需要，一般选择最新的）</td>
+<td style="text-align:left"><a href="http://211.69.141.1/files/5241000000563723/120.52.72.52/circos.ca/c3pr90ntcsf0/distribution/circos-0.69-2.tgz" target="_blank" rel="external">circos-0.69-2.tgz</a></td>
+<td style="text-align:left">这是用来绘图的主要的安装包程序文件（版本根据自己需要，一般选择最新的）</td>
 </tr>
 <tr>
-<td><a href="http://circos.ca/distribution/circos-tutorials-0.67.tgz" target="_blank" rel="external">circos-tutorials-0.67.tgz</a></td>
-<td>这里面是用户的教程，详细的配置说明，解释，每一个图对应的相应的Circos配置文件和数据文件（个人觉得很重要，我的学习主要来自这里）</td>
+<td style="text-align:left"><a href="http://circos.ca/distribution/circos-tutorials-0.67.tgz" target="_blank" rel="external">circos-tutorials-0.67.tgz</a></td>
+<td style="text-align:left">这里面是用户的教程，详细的配置说明，解释，每一个图对应的相应的Circos配置文件和数据文件（个人觉得很重要，我的学习主要来自这里）</td>
 </tr>
 <tr>
-<td><a href="http://211.69.141.1/files/31870000005635CC/circos.ca/distribution/circos-tools-0.22.tgz" target="_blank" rel="external">circos-tools-0.22.tgz</a></td>
-<td>这里面是一些工具，根据需要选择</td>
+<td style="text-align:left"><a href="http://211.69.141.1/files/31870000005635CC/circos.ca/distribution/circos-tools-0.22.tgz" target="_blank" rel="external">circos-tools-0.22.tgz</a></td>
+<td style="text-align:left">这里面是一些工具，根据需要选择</td>
 </tr>
 </tbody>
 </table>
