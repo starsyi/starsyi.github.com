@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://yoursite.com/2016/05/31/Circos%E6%95%99%E7%A8%8B%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2016-05-31T13:10:28.294Z</lastmod>
+    <data>
+        <display>
+        <title>Circos教程（一）：安装</title>
+        <pubTime>2016-05-31T13:09:37.000Z</pubTime>
+        
+        <tag>circos</tag>
+         
+        <tag>software</tag>
+         
+        <tag>bioinformatics</tag>
+         
+         
+           
+             
+              <breadCrumb title="software" url="http://yoursite.com/categories/software/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://yoursite.com/2016/05/31/%E9%9D%9Eroot%E7%94%A8%E6%88%B7perl-GD%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%89%E8%A3%85/</loc>
     <lastmod>2016-05-31T12:46:17.580Z</lastmod>
     <data>
@@ -142,11 +166,11 @@
         <title>SAM文件格式说明</title>
         <pubTime>2016-05-24T09:05:47.000Z</pubTime>
         
-        <tag>sam</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>sam</tag>
          
          
            

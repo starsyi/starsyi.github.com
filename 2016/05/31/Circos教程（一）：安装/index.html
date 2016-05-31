@@ -1,0 +1,998 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="circos,software,bioinformatics," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寂寞先生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://7xubqr.com1.z0.glb.clouddn.com/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="一、简介首先，CIRCOS官网：这里什么是CIRCOS，简单的说，CIRCOS是一个将数据和信息可视化的工具包，它可以在一个圆形的布局中可视化数据，这就能够使CIRCOS很理想的研究物体或者位置之间的关系。下面是使用Circos绘制的一些图：
+二、下载和安装首先，下载地址：这里这里面有几个包，根据需要下载：
+
+
+
+软件
+介绍
+
+
+
+
+circos-0.69-2.tgz
+这是用来绘图的主要的安装包程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Circos教程（一）：安装">
+<meta property="og:url" content="http://yoursite.com/2016/05/31/Circos教程（一）：安装/index.html">
+<meta property="og:site_name" content="寂寞先生">
+<meta property="og:description" content="一、简介首先，CIRCOS官网：这里什么是CIRCOS，简单的说，CIRCOS是一个将数据和信息可视化的工具包，它可以在一个圆形的布局中可视化数据，这就能够使CIRCOS很理想的研究物体或者位置之间的关系。下面是使用Circos绘制的一些图：
+二、下载和安装首先，下载地址：这里这里面有几个包，根据需要下载：
+
+
+
+软件
+介绍
+
+
+
+
+circos-0.69-2.tgz
+这是用来绘图的主要的安装包程">
+<meta property="og:image" content="http://7xubqr.com1.z0.glb.clouddn.com/Circos%E7%AE%80%E4%BB%8B.png">
+<meta property="og:updated_time" content="2016-05-31T13:10:28.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Circos教程（一）：安装">
+<meta name="twitter:description" content="一、简介首先，CIRCOS官网：这里什么是CIRCOS，简单的说，CIRCOS是一个将数据和信息可视化的工具包，它可以在一个圆形的布局中可视化数据，这就能够使CIRCOS很理想的研究物体或者位置之间的关系。下面是使用Circos绘制的一些图：
+二、下载和安装首先，下载地址：这里这里面有几个包，根据需要下载：
+
+
+
+软件
+介绍
+
+
+
+
+circos-0.69-2.tgz
+这是用来绘图的主要的安装包程">
+<meta name="twitter:image" content="http://7xubqr.com1.z0.glb.clouddn.com/Circos%E7%AE%80%E4%BB%8B.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Circos教程（一）：安装 | 寂寞先生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?58c4dae5f3d2517753d1714e36369277";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	<!----------- add Fork me on Github ------------>
+	
+	<a href="https://github.com/starsyi/starsyi.github.com"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+	
+	<!----------- add Fork me on Github ------------> 
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">寂寞先生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">莫厌追欢笑语频，寻思离乱好伤神。闲来屈指从头数，得见清平有几人</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install', 'yYtz9jniQj6gr1XndP34','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Circos教程（一）：安装
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-31T21:09:37+08:00" content="2016-05-31">
+              2016-05-31
+            </time>
+          </span>
+		  
+		
+			<span id="busuanzi_container_page_pv">&nbsp;&nbsp;|&nbsp;&nbsp;阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/31/Circos教程（一）：安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/31/Circos教程（一）：安装/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>首先，CIRCOS官网：<a href="http://circos.ca/" target="_blank" rel="external">这里</a><br>什么是CIRCOS，简单的说，CIRCOS是一个将数据和信息可视化的工具包，它可以在一个圆形的布局中可视化数据，这就能够使CIRCOS很理想的研究物体或者位置之间的关系。<br>下面是使用Circos绘制的一些图：<br><img src="http://7xubqr.com1.z0.glb.clouddn.com/Circos%E7%AE%80%E4%BB%8B.png" alt="Circos介绍"></p>
+<h2 id="二、下载和安装"><a href="#二、下载和安装" class="headerlink" title="二、下载和安装"></a>二、下载和安装</h2><p>首先，下载地址：<a href="http://circos.ca/software/download/" target="_blank" rel="external">这里</a><br>这里面有几个包，根据需要下载：</p>
+<table>
+<thead>
+<tr>
+<th>软件</th>
+<th>介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="http://211.69.141.1/files/5241000000563723/120.52.72.52/circos.ca/c3pr90ntcsf0/distribution/circos-0.69-2.tgz" target="_blank" rel="external">circos-0.69-2.tgz</a></td>
+<td>这是用来绘图的主要的安装包程序文件（版本根据自己需要，一般选择最新的）</td>
+</tr>
+<tr>
+<td><a href="http://circos.ca/distribution/circos-tutorials-0.67.tgz" target="_blank" rel="external">circos-tutorials-0.67.tgz</a></td>
+<td>这里面是用户的教程，详细的配置说明，解释，每一个图对应的相应的Circos配置文件和数据文件（个人觉得很重要，我的学习主要来自这里）</td>
+</tr>
+<tr>
+<td><a href="http://211.69.141.1/files/31870000005635CC/circos.ca/distribution/circos-tools-0.22.tgz" target="_blank" rel="external">circos-tools-0.22.tgz</a></td>
+<td>这里面是一些工具，根据需要选择</td>
+</tr>
+</tbody>
+</table>
+<p>其中Circos是基于perl脚本的程序，所以它的安装难度也主要集中在安装好perl和相应的模块。而Circos的这个安装包，下载下来之后，直接解压就可以使用。</p>
+<p>下面是Circos安装最重要，也可能是困难的部分，perl模块的安装。<strong>主要是非root用户的perl使用安</strong>装<br><strong>下面详细讲解一下perl的模块安装。</strong>（我这里以基于Linux的服务器来进行讲解）<br>首先，我们没有root权限，所以我们需要自己安装一个perl（官网下载，source源码编译安装），或者<a href="http://www.activestate.com/activeperl" target="_blank" rel="external">ActiveState Perl</a>，我这里一源码编译安装做讲解。</p>
+<blockquote>
+<p>其中我也尝试过ActiveState Perl，但是由于它提示报错： perl/bin/perl: /lib64/libc.so.6:<br>version `GLIBC_2.14’ not found (required by perl/bin/perl)<br>解决方法：参考<a href="http://blog.csdn.net/cpplang/article/details/8462768" target="_blank" rel="external">ghui’s world</a> 事先说明，我没有通过他的方法成功解决问题。<br>主要原因是glibc的版本不够，在网上找了一些教程，但是没有解决，最好的方法还是管理员直接升级glibc，但是这可能很麻烦，引起很多问题。所以放弃了，其实要是能够下载到低版本的ActivePerl就可以直接安装了，但是我在官网上没有找到低版本（最好是5.18），就放弃了。</p>
+</blockquote>
+<p>然后就是perl的本地安装了，这个网上的教程很多，基本上没有什么问题所以就省略了。<br>在本地安装完成之后，然后修改环境变量，然后查看perl安装好了没有：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">which</span> perl</span><br><span class="line">~/bin/perl/bin/perl</span><br><span class="line">$ perl -v</span><br><span class="line">This is perl 5, version 22, subversion 2 (v5.22.2) built <span class="keyword">for</span> x86_64-linux-thread-multi</span><br><span class="line"></span><br><span class="line">Copyright 1987-2015, Larry Wall</span><br><span class="line"></span><br><span class="line">Perl may be copied only under the terms of either the Artistic License or the</span><br><span class="line">GNU General Public License, <span class="built_in">which</span> may be found <span class="keyword">in</span> the Perl 5 <span class="built_in">source</span> kit.</span><br><span class="line"></span><br><span class="line">Complete documentation <span class="keyword">for</span> Perl, including FAQ lists, should be found on</span><br><span class="line">this system using <span class="string">"man perl"</span> or <span class="string">"perldoc perl"</span>.  If you have access to the</span><br><span class="line">Internet, point your browser at http://www.perl.org/, the Perl Home Page.</span><br></pre></td></tr></table></figure></p>
+<p>这样，我们就可以进入到模块的安装：<br>首先，我们看一下需要安装安装那些文件：<br>首先进入到我们解压后的circos目录下的bin目录：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /your/path/circos/bin</span><br><span class="line">$ ls</span><br><span class="line">circos  circos.exe  compile.bat  compile.make  gddiag  list.modules  test.modules</span><br><span class="line">[xxyi@login bin]$ ./list.modules</span><br><span class="line">Carp</span><br><span class="line">Clone</span><br><span class="line">Config::General</span><br><span class="line">Cwd</span><br><span class="line">Data::Dumper</span><br><span class="line">Digest::MD5</span><br><span class="line">File::Basename</span><br><span class="line">File::Spec::Functions</span><br><span class="line">File::Temp</span><br><span class="line">FindB<span class="keyword">in</span></span><br><span class="line">Font::TTF::Font</span><br><span class="line">GD</span><br><span class="line">GD::Image</span><br><span class="line">Getopt::Long</span><br><span class="line">IO::File</span><br><span class="line">List::MoreUtils</span><br><span class="line">List::Util</span><br><span class="line">Math::Round</span><br><span class="line">Math::Trig</span><br><span class="line">Math::VecStat</span><br><span class="line">Memoize</span><br><span class="line">Params::Validate</span><br><span class="line">Pod::Usage</span><br><span class="line">POSIX</span><br><span class="line">Readonly</span><br><span class="line">Regexp::Common</span><br><span class="line">Statistics::Basic</span><br><span class="line">Storable</span><br><span class="line">Sys::Hostname</span><br><span class="line">Text::Balanced</span><br><span class="line">Text::Format</span><br><span class="line">Time::HiRes</span><br></pre></td></tr></table></figure></p>
+<p>接下来要做的就是一个个安装这些软件：<br>主要有三种方法：<br><strong>第一种方法：</strong><br>perl -MCPAN -e shell<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ perl -MCPAN <span class="_">-e</span> shell</span><br><span class="line">Redundant argument <span class="keyword">in</span> sprintf at /public/home/xxyi/bin/perl/lib/5.22.2/CPAN.pm line 314.</span><br><span class="line">cpan shell -- CPAN exploration and modules installation (v2.10)</span><br><span class="line">Enter <span class="string">'h'</span> <span class="keyword">for</span> help.</span><br><span class="line"></span><br><span class="line">cpan[1]&gt; install Bundle::CPAN Bundle::LWP</span><br></pre></td></tr></table></figure></p>
+<p>建议大家安装以上两个包，这可以解决我们安装时需要的一些安装包的依赖包。</p>
+<p>通过同样的方法可以安装其他的安装包：<br>当然对于有些安装的时候 test不通过的模块可以使用force install安装包，强制安装软件，还有一些软件因为依赖包的关系，不能安装，所以可以通过先安装它的依赖包，再安装这个包，同样的不能安装的包可以尝试强制安装。</p>
+<p>进入到安装界面：<br>举个例子：<br>Readonly安装失败，就是一个依赖包的安装，在test的时候没有通过，导致安装失败。因此Readonly安装会你首先安装这个依赖包，出错，然后强制安装<br>perl -MCPAN -e shell<br>force install 依赖包<br>再安装Readonly</p>
+<p>对于Perl GD 模块的安装，必须先安装ligd:<br>libgd网站：<a href="http://libgd.github.io/" target="_blank" rel="external">http://libgd.github.io/</a><br>下载地址：<a href="https://github.com/libgd/libgd/releases" target="_blank" rel="external">https://github.com/libgd/libgd/releases</a><br>安装方法：见我另一篇博客：<a href="http://starsyi.github.io/2016/05/31/%E9%9D%9Eroot%E7%94%A8%E6%88%B7perl-GD%E6%A8%A1%E5%9D%97%E7%9A%84%E5%AE%89%E8%A3%85/#more" target="_blank" rel="external">这里</a></p>
+<p><strong>第二种方法：</strong><br>举个例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cpan -i Config::General</span><br></pre></td></tr></table></figure></p>
+<p>这个方法跟第一个方法差不多</p>
+<p><strong>第三种方法：</strong><br>对于其中一直安装不上的软件可以尝试手工安装<br>举个例子：<br>就是我在安装Font::TTF::Font，安装一直报错，所以本地安装，在<a href="http://search.cpan.org/下载发现，解压出来不对，可能是这个原因才导致安装出错。报错如下：" target="_blank" rel="external">http://search.cpan.org/下载发现，解压出来不对，可能是这个原因才导致安装出错。报错如下：</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">$ cpan -i Font::TTF::Font  </span><br><span class="line">Loading internal null logger. Install Log::Log4perl <span class="keyword">for</span> logging messages</span><br><span class="line">CPAN: Storable loaded ok (v2.53_01)</span><br><span class="line">Reading <span class="string">'/public/home/xxyi/.cpan/Metadata'</span></span><br><span class="line">  Database was generated on Wed, 25 May 2016 11:17:02 GMT</span><br><span class="line">Running install <span class="keyword">for</span> module <span class="string">'Font::TTF::Font'</span></span><br><span class="line">CPAN: Digest::SHA loaded ok (v5.95)</span><br><span class="line">CPAN: Compress::Zlib loaded ok (v2.069)</span><br><span class="line"></span><br><span class="line">Checksum mismatch <span class="keyword">for</span> distribution file. Please investigate.</span><br><span class="line"></span><br><span class="line">Distribution id = M/MH/MHOSKEN/Font-TTF-1.05.tar.gz</span><br><span class="line">    CPAN_USERID  MHOSKEN (Martin Hosken &lt;martin_hosken@sil.org&gt;)</span><br><span class="line">    CALLED_FOR   Font::TTF::Font</span><br><span class="line">    CHECKSUM_STATUS </span><br><span class="line">    CONTAINSMODS Font::TTF Font::TTF::AATKern Font::TTF::AATutils Font::TTF::Anchor Font::TTF::Bsln Font::TTF::Cmap Font::TTF::Coverage Font::TTF::Cvt_ Font::TTF::DSIG Font::TTF::Delta Font::TTF::Dumper Font::TTF::EBDT Font::TTF::EBLC Font::TTF::Fdsc Font::TTF::Feat Font::TTF::Features::Cvar Font::TTF::Features::Size Font::TTF::Features::S<span class="built_in">set</span> Font::TTF::Fmtx Font::TTF::Font Font::TTF::Fpgm Font::TTF::GDEF Font::TTF::GPOS Font::TTF::GSUB Font::TTF::Glat Font::TTF::Gloc Font::TTF::Glyf Font::TTF::Glyph Font::TTF::GrFeat Font::TTF::Hdmx Font::TTF::Head Font::TTF::Hhea Font::TTF::Hmtx Font::TTF::Kern Font::TTF::Kern::ClassArray Font::TTF::Kern::CompactClassArray Font::TTF::Kern::OrderedList Font::TTF::Kern::StateTable Font::TTF::Kern::Subtable Font::TTF::LTSH Font::TTF::Loca Font::TTF::Maxp Font::TTF::Mort Font::TTF::Mort::Chain Font::TTF::Mort::Contextual Font::TTF::Mort::Insertion Font::TTF::Mort::Ligature Font::TTF::Mort::Noncontextual Font::TTF::Mort::Rearrangement Font::TTF::Mort::Subtable Font::TTF::Name Font::TTF::OS_2 Font::TTF::OTTags Font::TTF::OldCmap Font::TTF::OldMort Font::TTF::PCLT Font::TTF::PSNames Font::TTF::Post Font::TTF::Prep Font::TTF::Prop Font::TTF::Segarr Font::TTF::Silf Font::TTF::Sill Font::TTF::Table Font::TTF::Ttc Font::TTF::Ttopen Font::TTF::Utils Font::TTF::Vhea Font::TTF::Vmtx Font::TTF::W<span class="keyword">in</span>32 Font::TTF::Woff Font::TTF::Woff::MetaData Font::TTF::Woff::PrivateData Font::TTF::XMLparse</span><br><span class="line">    UPLOAD_DATE  2015-01-26</span><br><span class="line">    incommandcolor 1</span><br><span class="line">    localfile    /public/home/xxyi/.cpan/sources/authors/id/M/MH/MHOSKEN/Font-TTF-1.05.tar.gz</span><br><span class="line">    mandatory    1</span><br><span class="line">    negative_prefs_cache 0</span><br><span class="line">    prefs        HASH(0xe4a1550)</span><br><span class="line">    reqtype      c</span><br><span class="line"></span><br><span class="line">I<span class="string">'d recommend removing</span><br><span class="line">/public/home/xxyi/.cpan/sources/authors/id/M/MH/MHOSKEN/Font-TTF-1.05.tar.g</span><br><span class="line">z. Its</span><br><span class="line">checksum is incorrect. Maybe you have configured your '</span>urllist<span class="string">' with</span><br><span class="line">a bad URL. Please check this array with '</span>o conf urllist<span class="string">', and</span><br><span class="line">retry.</span></span><br></pre></td></tr></table></figure></p>
+<p>所以搜索，在github上找到这个包<br>然后解压安装<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$perl</span> Makefile.PL PREFIX=/your/<span class="built_in">local</span>/path/to/perl INSTALLDIRS=perl</span><br><span class="line"><span class="variable">$make</span></span><br><span class="line"><span class="variable">$make</span> install</span><br></pre></td></tr></table></figure></p>
+<p>这样就OK了，其他的安装包也可以这样</p>
+<p>就使用如上的方法，一直到所有的模块安装成功：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">$ ./test.modules </span><br><span class="line">Circos can now list its own modules.</span><br><span class="line"></span><br><span class="line">&gt; circos -modules</span><br><span class="line">$ circos -modules</span><br><span class="line">ok       1.38 Carp</span><br><span class="line">ok       0.38 Clone</span><br><span class="line">ok       2.61 Config::General</span><br><span class="line">ok       3.62 Cwd</span><br><span class="line">ok      2.154 Data::Dumper</span><br><span class="line">ok       2.55 Digest::MD5</span><br><span class="line">ok       2.85 File::Basename</span><br><span class="line">ok       3.62 File::Spec::Functions</span><br><span class="line">ok     0.2304 File::Temp</span><br><span class="line">ok       1.51 FindB<span class="keyword">in</span></span><br><span class="line">ok       0.39 Font::TTF::Font</span><br><span class="line">ok       2.56 GD</span><br><span class="line">ok        0.2 GD::Polyline</span><br><span class="line">ok       2.48 Getopt::Long</span><br><span class="line">ok       1.16 IO::File</span><br><span class="line">ok      0.415 List::MoreUtils</span><br><span class="line">ok       1.45 List::Util</span><br><span class="line">ok       0.01 Math::Bezier</span><br><span class="line">ok   1.999722 Math::BigFloat</span><br><span class="line">ok       0.07 Math::Round</span><br><span class="line">ok       0.08 Math::VecStat</span><br><span class="line">ok       1.03 Memoize</span><br><span class="line">ok    1.53_01 POSIX</span><br><span class="line">ok       1.24 Params::Validate</span><br><span class="line">ok       1.69 Pod::Usage</span><br><span class="line">ok       2.04 Readonly</span><br><span class="line">ok 2016020301 Regexp::Common</span><br><span class="line">ok       2.64 SVG</span><br><span class="line">ok       1.19 Set::IntSpan</span><br><span class="line">ok     1.6611 Statistics::Basic</span><br><span class="line">ok    2.53_01 Storable</span><br><span class="line">ok       1.20 Sys::Hostname</span><br><span class="line">ok       2.03 Text::Balanced</span><br><span class="line">ok       0.59 Text::Format</span><br><span class="line">ok     1.9733 Time::HiRes</span><br><span class="line">$</span><br></pre></td></tr></table></figure></p>
+<p>成功之后,运行命令,如果显示如下的信息，则你成功的安装了Circos。<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">$ circos -man</span><br><span class="line">NAME</span><br><span class="line">                                        ____ <span class="symbol">_</span></span><br><span class="line">                                       / ___(<span class="symbol">_</span>)<span class="symbol">_</span> <span class="symbol">__</span> ___ ___  ___</span><br><span class="line">                                      | |   | | '<span class="symbol">__</span>/ <span class="symbol">__</span>/ <span class="symbol">_</span> \/ <span class="symbol">__</span>|</span><br><span class="line">                                      | |___| | | | (<span class="symbol">_</span>| (<span class="symbol">_</span>) \<span class="symbol">__</span> \</span><br><span class="line">                                       \____|<span class="symbol">_</span>|<span class="symbol">_</span>|  \___\___/|___/</span><br><span class="line"></span><br><span class="line">                                                    <span class="built_in">round</span> <span class="built_in">is</span> good</span><br><span class="line"></span><br><span class="line">    circos - generate circular data visualizations</span><br><span class="line"></span><br><span class="line">SYNOPSIS</span><br><span class="line">      # without -conf Circos will search <span class="keyword">for</span> configuration</span><br><span class="line">      circos</span><br><span class="line"></span><br><span class="line">      # use specific configuration file</span><br><span class="line">      circos -conf circos.conf </span><br><span class="line"></span><br><span class="line">      # diagnose required modules</span><br><span class="line">      circos -modules</span><br><span class="line"></span><br><span class="line">      # detailed debugging <span class="keyword">for</span> code <span class="built_in">components</span></span><br><span class="line">      # see http://www.circos.ca/documentation/tutorials/configuration/debugging</span><br><span class="line">      circos -debug_group GROUP1,[GROUP2,...]</span><br><span class="line"></span><br><span class="line">      # full debugging</span><br><span class="line">      circos -debug_group _all</span><br><span class="line"></span><br><span class="line">      # absolutely no reporting</span><br><span class="line">      circos ... [-silent]</span><br><span class="line"></span><br><span class="line">      # configuration dump of a <span class="built_in">block</span> (<span class="keyword">or</span> <span class="built_in">block</span> tree) of</span><br><span class="line">      # any parameters that match REGEXP (optional)</span><br><span class="line">      circos -cdump [BLOCK1/[BLOCK2/...]]&#123;:REGEXP&#125;</span><br><span class="line">      circos -cdump ideogram</span><br><span class="line">      circos -cdump ideogram:<span class="built_in">label</span></span><br><span class="line">      circos -cdump ideogram/spacing</span><br><span class="line"></span><br><span class="line">      # override configuration parameters</span><br><span class="line">      circos -param <span class="built_in">image</span>/<span class="built_in">radius</span>=2000p -param ideogram/<span class="built_in">show</span>=no</span><br><span class="line"></span><br><span class="line">      # <span class="keyword">for</span> fun - randomize all colors <span class="keyword">in</span> the <span class="built_in">image</span> except <span class="keyword">for</span></span><br><span class="line">      # COLOR1, COLOR2,...</span><br><span class="line">      circos -randomcolor COLOR1,[COLOR2,...]</span><br><span class="line">      circos -randomcolor white,black</span><br></pre></td></tr></table></figure></p>
+<p>到这里，恭喜你，你的circos安装成功，你可以开始你的绘图工作了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/circos/" rel="tag">#circos</a>
+          
+            <a href="/tags/software/" rel="tag">#software</a>
+          
+            <a href="/tags/bioinformatics/" rel="tag">#bioinformatics</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/31/非root用户perl-GD模块的安装/" rel="next" title="非root用户perl GD模块的安装">
+                <i class="fa fa-chevron-left"></i> 非root用户perl GD模块的安装
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/31/Circos教程（一）：安装/"
+           data-title="Circos教程（一）：安装" data-url="http://yoursite.com/2016/05/31/Circos教程（一）：安装/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xubqr.com1.z0.glb.clouddn.com/avatar.png"
+               alt="starsyi" />
+          <p class="site-author-name" itemprop="name">starsyi</p>
+          <p class="site-description motion-element" itemprop="description">自古求真皆寂寞，唯挑心灯伴夜霭</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/starsyi" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2436657131" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:yxx285223595@163.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、简介"><span class="nav-number">1.</span> <span class="nav-text">一、简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、下载和安装"><span class="nav-number">2.</span> <span class="nav-text">二、下载和安装</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.05 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">starsyi
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cspan id='cnzz_stat_icon_1259228303'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259228303' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"starsyi"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '/js/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
