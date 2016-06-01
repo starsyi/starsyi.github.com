@@ -11,4 +11,4 @@ Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: http://starsyi.github.io/sitemap.xml
-Sitemap:http://starsyi.github.io/baidusitemap.xml
+Sitemap: http://starsyi.github.io/baidusitemap.xml
