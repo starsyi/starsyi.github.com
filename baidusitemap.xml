@@ -33,11 +33,11 @@
         <title>Circos教程（一）：安装</title>
         <pubTime>2016-05-31T13:09:37.000Z</pubTime>
         
-        <tag>circos</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>circos</tag>
          
          
            
@@ -106,11 +106,11 @@
         <title>变异检测（BWA+SAMtools+picard+GATK）</title>
         <pubTime>2016-05-25T14:31:42.000Z</pubTime>
         
+        <tag>bwa</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>bwa</tag>
          
         <tag>samtools</tag>
          
@@ -212,11 +212,11 @@
         <title>BWA 命令详解</title>
         <pubTime>2016-05-24T07:49:52.000Z</pubTime>
         
+        <tag>bwa</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>bwa</tag>
          
          
            

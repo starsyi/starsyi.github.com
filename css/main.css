@@ -1698,7 +1698,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #14c37f;
+  background: #376bff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2421,53 +2421,8 @@ hr {
     float: none;
   }
 }
-.site-search {
-  position: absolute;
-  top: 30px;
-  width: 150px;
-  right: -535px;
-  font-size: 0;
-  opacity: 1;
-  transition: 0.2s ease-out;
-}
-@media (max-width: 767px) {
-  .site-search {
-    position: static;
-  }
-}
 .site-search form {
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: $gray-deep;
-  padding: 0px 0px;
-  border-radius: 8px;
-  box-shadow: 0 0 2px rgba(0,0,0,0.5);
-}
-@media (max-width: 767px) {
-  .site-search form {
-    background: none;
-  }
-}
-.site-search form input {
-  border: none;
-  color: #222;
-  background: transparent url("/images/searchicon.png") no-repeat 10px 40%;
-  background-size: 15px 15px;
-}
-@media (max-width: 767px) {
-  .site-search form input {
-    color: #222;
-  }
-}
-.use-motion .site-search form {
-  top: 0px;
-}
-@media (max-width: 767px) {
-  .use-motion .site-search form {
-    top: 0 !important;
-  }
+  display: none;
 }
 .posts-expand {
   padding-top: 0;
