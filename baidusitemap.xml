@@ -5,17 +5,17 @@
     
   <url>
     <loc>http://starsyi.github.io/2016/06/23/Circos%E6%95%99%E7%A8%8B(%E4%BA%8C)%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2016-06-23T09:55:45.472Z</lastmod>
+    <lastmod>2016-06-23T10:00:50.581Z</lastmod>
     <data>
         <display>
         <title>Circos教程(二):基础使用</title>
         <pubTime>2016-06-23T09:53:55.000Z</pubTime>
         
-        <tag>circos</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>circos</tag>
          
          
            
@@ -95,11 +95,11 @@
         <title>Circos教程(一):安装</title>
         <pubTime>2016-05-31T13:09:37.000Z</pubTime>
         
-        <tag>circos</tag>
-         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
+         
+        <tag>circos</tag>
          
          
            
@@ -210,11 +210,11 @@
         <title>变异检测（BWA+SAMtools+picard+GATK）</title>
         <pubTime>2016-05-25T14:31:42.000Z</pubTime>
         
+        <tag>bwa</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>bwa</tag>
          
         <tag>samtools</tag>
          
@@ -316,11 +316,11 @@
         <title>BWA 命令详解</title>
         <pubTime>2016-05-24T07:49:52.000Z</pubTime>
         
+        <tag>bwa</tag>
+         
         <tag>software</tag>
          
         <tag>bioinformatics</tag>
-         
-        <tag>bwa</tag>
          
          
            
