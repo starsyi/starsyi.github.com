@@ -1,0 +1,996 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?58c4dae5f3d2517753d1714e36369277";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="D7LHotvBGQAv3NQ6Q9Hri2OegPTkik17EdBN5BTXQkk" />
+
+
+
+
+  <meta name="baidu-site-verification" content="7LyEUnR9ES" />
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="circos,software,bioinformatics," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="寂寞先生" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="http://7xubqr.com1.z0.glb.clouddn.com/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="###一、circos绘图流程
+图1. Circos绘图流程理解了circos的绘图流程，理解了每个文件的作用，基本上也就学会了circos绘图工具。
+###二、circos配置文件
+1. 数据文件#####1.1 基因组数据文件先看文件：12345#染色体 -   染色体编号(ID) 图显示名称(Label)     起始   结束    颜色chr -   Gmax01  1   0   56">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Circos教程(二):基础使用">
+<meta property="og:url" content="http://starsyi.github.io/2016/06/23/Circos教程(二)基础使用/index.html">
+<meta property="og:site_name" content="寂寞先生">
+<meta property="og:description" content="###一、circos绘图流程
+图1. Circos绘图流程理解了circos的绘图流程，理解了每个文件的作用，基本上也就学会了circos绘图工具。
+###二、circos配置文件
+1. 数据文件#####1.1 基因组数据文件先看文件：12345#染色体 -   染色体编号(ID) 图显示名称(Label)     起始   结束    颜色chr -   Gmax01  1   0   56">
+<meta property="og:image" content="http://blog.qiubio.com:8080/wp-content/uploads/2011/11/circos-architecture.png">
+<meta property="og:image" content="http://blog.qiubio.com:8080/wp-content/uploads/2011/11/chromosomallocation.jpg">
+<meta property="og:image" content="http://www.chenlianfu.com/data/pictures/circos.png">
+<meta property="og:image" content="http://7xubqr.com1.z0.glb.clouddn.com/circos.jpg">
+<meta property="og:updated_time" content="2016-06-23T09:55:45.472Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Circos教程(二):基础使用">
+<meta name="twitter:description" content="###一、circos绘图流程
+图1. Circos绘图流程理解了circos的绘图流程，理解了每个文件的作用，基本上也就学会了circos绘图工具。
+###二、circos配置文件
+1. 数据文件#####1.1 基因组数据文件先看文件：12345#染色体 -   染色体编号(ID) 图显示名称(Label)     起始   结束    颜色chr -   Gmax01  1   0   56">
+<meta name="twitter:image" content="http://blog.qiubio.com:8080/wp-content/uploads/2011/11/circos-architecture.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Circos教程(二):基础使用 | 寂寞先生 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?58c4dae5f3d2517753d1714e36369277";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+	
+	<!----------- add Fork me on Github ------------>
+	
+	<a href="https://github.com/starsyi/starsyi.github.com"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+	
+	<!----------- add Fork me on Github ------------> 
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">寂寞先生</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">莫厌追欢笑语频，寻思离乱好伤神。闲来屈指从头数，得见清平有几人</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+		
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  
+  _st('install', 'yYtz9jniQj6gr1XndP34','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Circos教程(二):基础使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-23T17:53:55+08:00" content="2016-06-23">
+              2016-06-23
+            </time>
+          </span>
+		  
+		
+			<span id="busuanzi_container_page_pv">&nbsp;&nbsp;|&nbsp;&nbsp;阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+		
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/23/Circos教程(二)基础使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/23/Circos教程(二)基础使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>###一、circos绘图流程</p>
+<p><img src="http://blog.qiubio.com:8080/wp-content/uploads/2011/11/circos-architecture.png" alt="此处输入图片的描述"><br>图1. Circos绘图流程<br>理解了circos的绘图流程，理解了每个文件的作用，基本上也就学会了circos绘图工具。</p>
+<p>###二、circos配置文件</p>
+<h4 id="1-数据文件"><a href="#1-数据文件" class="headerlink" title="1. 数据文件"></a>1. 数据文件</h4><p>#####1.1 基因组数据文件<br>先看文件：<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#染色体 -   染色体编号(ID) 图显示名称(Label)     起始   结束    颜色</span></span><br><span class="line"><span class="built_in">chr</span> -   Gmax01  <span class="number">1</span>   <span class="number">0</span>   <span class="number">56831624</span>    chr1</span><br><span class="line"><span class="built_in">chr</span> -   Gmax02  <span class="number">2</span>   <span class="number">0</span>   <span class="number">48577505</span>   chr2</span><br><span class="line"><span class="built_in">chr</span> -   Gmax03  <span class="number">3</span>   <span class="number">0</span>   <span class="number">45779781</span>    chr3</span><br><span class="line">…</span><br></pre></td></tr></table></figure></p>
+<p>讲解一下：<br><figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">染色体      chr，这一列定义表面这是一个染色体</span><br><span class="line"></span><br><span class="line">-           短线占位符，这个占位符通常用来定义所属关系，对于染色体来说，没有所属</span><br><span class="line"></span><br><span class="line">染色体编号  ID，ID是染色体唯一且不能重复的标识。如果一个染色体组型文件里面包含多个不同来源的染色体组，设置ID最好的办法就是使用前缀。</span><br><span class="line">            比如hs=homo sapiens, mm=mus musculus等等。有时候你可以使用hs19做为前缀来明示数据来源版本。</span><br><span class="line">            其实，即使是只有一个来源的染色体组，也最好使用前缀，以规范文件格式。</span><br><span class="line">            比如上面的示例，就是我绘图的大豆的基因组，因而我在设置染色体编号（ID）的时候，使用了Gmax01 …的格式，自己可以根据自己的染色体来设置。</span><br><span class="line"></span><br><span class="line">图显名称    <span class="built_in">Label</span>，是将来用于显示在图上的文本。<span class="built_in">Label</span>主要是在图中显示的名称，我这里就直接使用<span class="number">1</span>,<span class="number">2</span>, …表示，</span><br><span class="line">            但是如果有多个物种的基因组，或者来自不同的样品，品系的，还是要加以区分。</span><br><span class="line"></span><br><span class="line">起始、结束  <span class="built_in">START</span>和END值，定义了染色体的大小。</span><br><span class="line">            对于染色体组型文件，需要指明的是，这里的<span class="built_in">START</span>和END应该是染色体本身的大小，而不是你想绘制部分的起止位置。</span><br><span class="line">            指定绘制部分将由其它文件来定义。</span><br><span class="line"></span><br><span class="line">颜色        <span class="built_in">COLOR</span>，是于定义显示的颜色。如果染色体组不以条纹(cytogenetic bands)图谱覆盖的话，那么就会以这里设置的颜色显示。</span><br><span class="line">            对于人类基因组而言，circos预设了与染色体相同的名字做为颜色名，比如chr1, chr2, … chrX, chrY, chrUn.</span><br></pre></td></tr></table></figure></p>
+<p><strong>关于染色体上加上条纹图谱的信息</strong>，可以参考<a href="http://blog.qiubio.com:8080/archives/2519" target="_blank" rel="external">《Circos系列教程（二）染色体示意图ideograms 》</a>，这里方便，也移植过来了：<br>    一般的，我们都会在染色体组型文件当中加上条纹图谱的信息，这样才会让染色体图谱看上去有被染色的效果。文件格式与之前的一致，也只有七列。这里的DOMAIN就是染色体组型当中的ID就好了，其它的定义与前面的一致。下面就是一个例子。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">band</span>    <span class="selector-tag">DOMAIN</span>  <span class="selector-tag">ID</span>  <span class="selector-tag">LABEL</span>   <span class="selector-tag">START</span>   <span class="selector-tag">END</span> <span class="selector-tag">COLOR</span></span><br><span class="line"><span class="selector-tag">band</span>    <span class="selector-tag">hs1</span>     <span class="selector-tag">p36</span><span class="selector-class">.33</span>  <span class="selector-tag">p36</span><span class="selector-class">.33</span>  0   2300000     <span class="selector-tag">gneg</span></span><br><span class="line"><span class="selector-tag">band</span>    <span class="selector-tag">hs1</span>     <span class="selector-tag">p36</span><span class="selector-class">.32</span>  <span class="selector-tag">p36</span><span class="selector-class">.32</span>  2300000     5400000     <span class="selector-tag">gpos25</span></span><br><span class="line"><span class="selector-tag">band</span>    <span class="selector-tag">hs1</span>     <span class="selector-tag">p36</span><span class="selector-class">.31</span>  <span class="selector-tag">p36</span><span class="selector-class">.31</span>  5400000     7200000     <span class="selector-tag">gneg</span></span><br><span class="line"><span class="selector-tag">band</span>    <span class="selector-tag">hs1</span>     <span class="selector-tag">p36</span><span class="selector-class">.23</span>  <span class="selector-tag">p36</span><span class="selector-class">.23</span>  7200000     9200000     <span class="selector-tag">gpos25</span></span><br><span class="line"><span class="selector-tag">band</span>    <span class="selector-tag">hs1</span>     <span class="selector-tag">p36</span><span class="selector-class">.22</span>  <span class="selector-tag">p36</span><span class="selector-class">.22</span>  9200000     12700000    <span class="selector-tag">gneg</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>cytogenetic bands的名称例子：1p36.33<br>其命名规则是之前的数字、字母为染色体代号，一般是数字或者X,Y。而之后会有字母p或者q。p代表短臂，q代表长臂。而每个band都会有颜色深浅的不同，这里主要以gpos和gneg来区别。为了和真实值更接近，circos还定义了一系列的灰度。<br><img src="http://blog.qiubio.com:8080/wp-content/uploads/2011/11/chromosomallocation.jpg" alt="此处输入图片的描述"><br>图2. 染色体组型定义</p>
+<p>#####1.2 feature数据文件<br>刚才说完了基因组的数据文件，下面说一下其他的数据文件，我这里做了SNP的密度显示track，那么就拿这样一个track来做一个示例：<br><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#染色体编号 起始位置    终止位置    value</span><br><span class="line">Gmax01  <span class="number">0</span>   <span class="number">999999</span>  <span class="number">0.000301</span></span><br><span class="line">Gmax01  <span class="number">1000000</span>     <span class="number">1999999</span>     <span class="number">0.001321</span></span><br><span class="line">Gmax01  <span class="number">2000000</span>     <span class="number">2999999</span>     <span class="number">0.001050</span></span><br><span class="line">Gmax01  <span class="number">3000000</span>     <span class="number">3999999</span>     <span class="number">0.003027</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>解释一下：<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">这里的染色体编号一定要与基因组信息文件中的染色体编号保持一致，不然绘图的时候会出错；</span><br><span class="line">起始位置、终止位置，这是你要统计的这个区段的的范围；</span><br><span class="line"><span class="keyword">value</span>，则是值，根据情况，比如我这里是统计的SNP的密度，那么这个值就是在这个染色体区段范围类，染色体的密度，如果是统计数量，那么这个值就是数目。</span><br></pre></td></tr></table></figure></p>
+<p>每个track都有自己对应的数据，而且不同的绘图类型，所需要的数据结构可能都不一样，这是你就需要根据自己的需求来准备数据文件了。<br>不同显示数据的track对应的数据文件的格式，其实数据的格式都很好理解，如果你想绘制什么样的图，可以在官网上找到相关的数据类型结构，你只要根据这个结构来做好你的数据，就没什么问题。</p>
+<h4 id="2-配置文件"><a href="#2-配置文件" class="headerlink" title="2. 配置文件"></a>2. 配置文件</h4><p>一般绘图需要以下配置文件：</p>
+<ul>
+<li>circos.conf</li>
+<li>ideogram.conf</li>
+<li>ticks.conf</li>
+<li>image.conf</li>
+<li>highlight.conf</li>
+<li>colors_fonts_patterns.conf</li>
+</ul>
+<p>你可以将配置文件内容全部放在circos.conf里，也可以分离成单独的文件通过include方式导入。<br>为了使用，阅读和读取的方便，我们还是建议最好分离成单独的文件。<br>那么我们就一个一个的配置文件说起，最后说主配置文件circos.conf<br>因为有很多人已经在这方面有了很详细的注解和心得，我也就不自己一个个来翻译，注释和配置了，这里主要引用来自陈连福<a href="http://www.chenlianfu.com/?p=2342" target="_blank" rel="external">《Circos的安装和简单使用》</a></p>
+<p>#####2.1 ideogram block 显示染色体<br>将染色体在圈图上展示出来，代表每个染色体的图形，称为ideogram。将以下配置信息放入一个单独的配置文件中，给其命名 ideogram.conf 。<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;ideogram&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">## 设定 ideograms 之间的空隙</span></span><br><span class="line">&lt;spacing&gt;</span><br><span class="line"><span class="meta"># 设置圈图中染色体之间的空隙大小，以下设置为每个空隙大小为周长的 0.5%</span></span><br><span class="line"><span class="keyword">default</span> = <span class="number">0.005</span>r</span><br><span class="line"></span><br><span class="line"><span class="meta"># 也可以设置指定两条染色体之间的空隙</span></span><br><span class="line"><span class="meta">#&lt;pairwise hsY;hs1&gt;</span></span><br><span class="line"><span class="meta"># 以下设定为两条染色体之间的空隙约为圆的 20 度角。</span></span><br><span class="line"><span class="meta">#spacing = 20r</span></span><br><span class="line"><span class="meta">#&lt;/pairwise&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;/spacing&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">## 设定 ideograms </span></span><br><span class="line"><span class="meta"># 设定 ideograms 的位置，以下设定 ideograms 在图离圆心的 90% 处</span></span><br><span class="line">radius           = <span class="number">0.90</span>r</span><br><span class="line"><span class="meta"># 设定 ideograms 的厚度，可以使用 r（比例关系） 或 p（像素）作为单位</span></span><br><span class="line">thickness        = <span class="number">20</span>p</span><br><span class="line"><span class="meta"># 设定 ideograms 是否填充颜色。填充的颜色取决于 karyotype 指定的文件的最后一列。</span></span><br><span class="line">fill             = yes</span><br><span class="line"><span class="meta"># 设定 ideograms 轮廓的颜色及其厚度。如果没有该参数或设定其厚度为0，则表示没有轮廓。</span></span><br><span class="line">stroke_color     = dgrey</span><br><span class="line">stroke_thickness = <span class="number">2</span>p</span><br><span class="line"></span><br><span class="line"><span class="meta">## 设定 label 的显示</span></span><br><span class="line"><span class="meta"># 设定是否显示 label 。 label 对应着 karyotype 文件的第 4 列。如果其值为 yes，则必须要有 label_radius 参数来设定 label 的位置，否则会报错并不能生成结果。</span></span><br><span class="line">show_label       = yes</span><br><span class="line"><span class="meta"># 设定 label 的字体</span></span><br><span class="line">label_font       = <span class="keyword">default</span></span><br><span class="line"><span class="meta"># 设定 label 的位置</span></span><br><span class="line">label_radius     = <span class="number">1</span>r+<span class="number">90</span>p</span><br><span class="line"><span class="meta"># 设定 label 的字体大小</span></span><br><span class="line">label_size       = <span class="number">40</span></span><br><span class="line"><span class="meta"># 设定 label 的字体方向，yes 是易于浏览的方向。</span></span><br><span class="line">label_parallel   = yes</span><br><span class="line"></span><br><span class="line">&lt;/ideogram&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#####2.2 ticks block 以刻度形式显示染色体大小<br>将染色体的大小以刻度的形式在圈图上展示出来。将以下配置信息放入一个单独的配置文件中，给其命名 ticks.conf 。<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否显示 ticks</span></span><br><span class="line">show_ticks         = yes</span><br><span class="line"><span class="comment"># 是否显示 ticks 的 lables</span></span><br><span class="line">show_tick_labels    = yes</span><br><span class="line"></span><br><span class="line"><span class="comment">## 设定 ticks</span></span><br><span class="line">&lt;ticks&gt;</span><br><span class="line"><span class="comment">## ticks 的设置</span></span><br><span class="line"><span class="comment"># 设定 ticks 的位置</span></span><br><span class="line">radius           = 1r</span><br><span class="line"><span class="comment"># 设定 ticks 的颜色</span></span><br><span class="line">color            = black</span><br><span class="line"><span class="comment"># 设定 ticks 的厚度</span></span><br><span class="line">thickness        = 2p</span><br><span class="line"><span class="comment"># 设定 ticks' label 的值的计算。将该刻度对应位置的值 * multiplier 得到能展示到圈图上的 label 值。</span></span><br><span class="line">multiplier       = 1e-6</span><br><span class="line"><span class="comment"># label 值的格式化方法。%d 表示结果为整数；%f 结果为浮点数； %.1f 结果为小数点后保留1位； %.2f 结果为小数点后保留2位。</span></span><br><span class="line">format           = %d</span><br><span class="line"></span><br><span class="line"><span class="comment">## 以下设置了 2 个 ticks，前者是小刻度，后者是大刻度。</span></span><br><span class="line">&lt;tick&gt;</span><br><span class="line"><span class="comment"># 设置每个刻度代表的长度。若其单位为 u，则必须要设置 chromosomes_units 参数。比如设置 chromosomes_units = 1000000，则如下 5u 表示每个刻度代表 5M 长度的基因组序列。</span></span><br><span class="line">spacing        = 5u</span><br><span class="line"><span class="comment"># 设置 tick 的长度</span></span><br><span class="line">size           = 10p</span><br><span class="line">&lt;/tick&gt;</span><br><span class="line"></span><br><span class="line">&lt;tick&gt;</span><br><span class="line">spacing        = 25u</span><br><span class="line">size           = 15p</span><br><span class="line"><span class="comment"># 由于设置的是大刻度，以下用于设置展示 ticks' label。</span></span><br><span class="line">show_label     = yes</span><br><span class="line"><span class="comment"># 设置 ticks' label 的字体大小</span></span><br><span class="line">label_size     = 20p</span><br><span class="line"><span class="comment"># 设置 ticks' label 离 ticks 的距离</span></span><br><span class="line">label_offset   = 10p</span><br><span class="line">format         = %d</span><br><span class="line">&lt;/tick&gt;</span><br><span class="line"></span><br><span class="line">&lt;/ticks&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#####2.3 links block 以曲线连接显示基因组内部区域之间的联系<br>基因组内部不同的序列区域之间有联系，将之使用线条进行连接，从而展示到圈图上。常见的是重复序列之间的连接。将以下配置信息放入一个单独的配置文件中，给其命名 links.conf 。<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">&lt;links&gt;</span><br><span class="line"></span><br><span class="line">&lt;link&gt;</span><br><span class="line"><span class="meta"># 指定 link 文件的路径，其文件格式为：</span></span><br><span class="line"><span class="meta"># chr1  start   end     chr2    start   end</span></span><br><span class="line"><span class="meta"># hs1   465     30596   hs2     114046768       114076456</span></span><br><span class="line"><span class="meta"># 表明这两个染色体区域有联系，例如这个区域的序列长度&gt;1kb且序列相似性&gt;=90%。</span></span><br><span class="line">file          = data/<span class="number">5</span>/segdup.txt</span><br><span class="line"><span class="meta"># 设置 link 曲线的半径</span></span><br><span class="line">radius        = <span class="number">0.8</span>r</span><br><span class="line"><span class="meta"># 设置贝塞尔曲线半径，该值设大后曲线扁平，使图像不太好看。</span></span><br><span class="line">bezier_radius = <span class="number">0</span>r</span><br><span class="line"><span class="meta"># 设置 link 曲线的颜色</span></span><br><span class="line">color         = black_a4</span><br><span class="line"><span class="meta"># 设置 link 曲线的厚度</span></span><br><span class="line">thickness     = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line"><span class="meta"># 以下可以设置多个 rules，用来对 link 文件的每一行进行过滤或展示进行设定。每个 rule 都有一个 condition 参数；如果该 condition 为真，除非 flow=continue ，则不</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 如果 link 文件中该行数据是染色体内部的 link，则不对其进行展示</span></span><br><span class="line">&lt;rule&gt;</span><br><span class="line">condition     = <span class="keyword">var</span>(intrachr)</span><br><span class="line">show          = no</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta"># 设置 link 曲线的颜色与 ideogram 的颜色一致，否则为统一的颜色。</span></span><br><span class="line">&lt;rule&gt;</span><br><span class="line"><span class="meta"># condition 为真，则执行该 block 的内容</span></span><br><span class="line">condition     = <span class="number">1</span></span><br><span class="line"><span class="meta"># 设置 link 曲线的颜色为第 2 条染色体的颜色。对应这 link 文件中第 4 列数据对应的染色体的名称</span></span><br><span class="line">color         = eval(<span class="keyword">var</span>(chr2))</span><br><span class="line"><span class="meta"># 虽然 condition 为真，但依然检测下一个 rule</span></span><br><span class="line">flow          = continue</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta"># 如果 link 起始于 hs1，则其 link 曲线半径为 0.99r</span></span><br><span class="line">&lt;rule&gt;</span><br><span class="line">condition     = from(hs1)</span><br><span class="line">radius1       = <span class="number">0.99</span>r</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta"># 如果 link 结束于 hs1，则其 link 曲线半径为 0.99r</span></span><br><span class="line">&lt;rule&gt;</span><br><span class="line">condition     = to(hs1)</span><br><span class="line">radius2       = <span class="number">0.99</span>r</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/link&gt;</span><br><span class="line"></span><br><span class="line">&lt;/links&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#####2.4 plots block 以直方图形式展示数据<br>将基因组序列的GC含量，表达量等以直方图的形式在圈图中展示出来。将以下配置信息放入一个单独的配置文件中，给其命名 plots_histogram.conf 。以下作了两个直方图，并对分别添上背景或网格线。<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="comment"># 设定为直方图</span></span><br><span class="line"><span class="attr">type</span> = histogram</span><br><span class="line"><span class="comment"># 数据文件路径，为 4 列：</span></span><br><span class="line"><span class="comment"># chromosome	start	end	data</span></span><br><span class="line"><span class="comment"># hs1	0	1999999	180.0000</span></span><br><span class="line"><span class="attr">file</span> = data/<span class="number">5</span>/segdup.hs1234.hist.txt</span><br><span class="line"><span class="comment"># 设置直方图的位置，r1 要比 r0 大。直方图的方向默认为向外。</span></span><br><span class="line"><span class="attr">r1</span>   = <span class="number">0.88</span>r</span><br><span class="line"><span class="attr">r0</span>   = <span class="number">0.81</span>r</span><br><span class="line"><span class="comment"># 直方图的填充颜色</span></span><br><span class="line"><span class="attr">fill_color</span> = vdgrey</span><br><span class="line"><span class="comment"># 默认下直方图轮廓厚度为 1px，若不需要轮廓，则设置其厚度为0，或在 etc/tracks/histogram.conf 中修改。</span></span><br><span class="line"><span class="attr">thickness</span> = <span class="number">0</span>p</span><br><span class="line"><span class="comment"># 直方图是由 bins （条行框）所构成的。若 bins 在坐标上不相连，最好设置不要将其bins连接到一起。例如：</span></span><br><span class="line"><span class="comment"># hs1 10 20 0.5</span></span><br><span class="line"><span class="comment"># hs1 30 40 0.25</span></span><br><span class="line"><span class="comment"># 上述数据设置值为 yes 和 no 时，图形是不一样的。</span></span><br><span class="line"><span class="attr">extend_bin</span> = no</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下添加 rule ，不在 hs1 上添加直方图。</span></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设定直方图的背景颜色</span></span><br><span class="line">&lt;backgrounds&gt;</span><br><span class="line"><span class="attr">show</span>  = data</span><br><span class="line"></span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="attr">color</span> = vvlgrey</span><br><span class="line">&lt;/background&gt;</span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="attr">color</span> = vlgrey</span><br><span class="line"><span class="attr">y0</span>    = <span class="number">0.2</span>r</span><br><span class="line"><span class="attr">y1</span>    = <span class="number">0.5</span>r</span><br><span class="line">&lt;/background&gt;</span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="attr">color</span> = lgrey</span><br><span class="line"><span class="attr">y0</span>    = <span class="number">0.5</span>r</span><br><span class="line"><span class="attr">y1</span>    = <span class="number">0.8</span>r</span><br><span class="line">&lt;/background&gt;</span><br><span class="line">&lt;background&gt;</span><br><span class="line"><span class="attr">color</span> = grey</span><br><span class="line"><span class="attr">y0</span>    = <span class="number">0.8</span>r</span><br><span class="line">&lt;/background&gt;</span><br><span class="line"></span><br><span class="line">&lt;/backgrounds&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="attr">type</span> = histogram</span><br><span class="line"><span class="comment"># 此处直方图的数据文件第 4 列是多个由逗号分割的数值，需要制作叠加的直方图。</span></span><br><span class="line"><span class="attr">file</span> = data/<span class="number">5</span>/segdup.hs1234.stacked.txt</span><br><span class="line"><span class="attr">r1</span>   = <span class="number">0.99</span>r</span><br><span class="line"><span class="attr">r0</span>   = <span class="number">0.92</span>r</span><br><span class="line"><span class="comment"># 给 4 个值按顺序填充不同的颜色</span></span><br><span class="line"><span class="attr">fill_color</span>  = hs1,hs2,hs3,hs4</span><br><span class="line"><span class="attr">thickness</span> = <span class="number">0</span>p</span><br><span class="line"><span class="attr">orientation</span> = <span class="keyword">in</span></span><br><span class="line"><span class="attr">extend_bin</span>  = no</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在直方图中添加坐标网格线</span></span><br><span class="line">&lt;axes&gt;</span><br><span class="line"><span class="attr">show</span> = data</span><br><span class="line"><span class="attr">thickness</span> = <span class="number">1</span></span><br><span class="line"><span class="attr">color</span>     = lgrey</span><br><span class="line"></span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="attr">spacing</span>   = <span class="number">0.1</span>r</span><br><span class="line">&lt;/axis&gt;</span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="attr">spacing</span>   = <span class="number">0.2</span>r</span><br><span class="line"><span class="attr">color</span>     = grey</span><br><span class="line">&lt;/axis&gt;</span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="attr">position</span>  = <span class="number">0.5</span>r</span><br><span class="line"><span class="attr">color</span>     = red</span><br><span class="line">&lt;/axis&gt;</span><br><span class="line">&lt;axis&gt;</span><br><span class="line"><span class="attr">position</span>  = <span class="number">0.85</span>r</span><br><span class="line"><span class="attr">color</span>     = green</span><br><span class="line"><span class="attr">thickness</span> = <span class="number">2</span></span><br><span class="line">&lt;/axis&gt;</span><br><span class="line"></span><br><span class="line">&lt;/axes&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#####2.5 plots block 以热图形式显示数据</p>
+<p>基因组一个区域内有多组数据时，适合以热图形式显示数据。比如基因表达量。将以下配置信息放入一个单独的配置文件中，给其命名 plots_heatmap.conf 。<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="comment"># 绘制 heat map</span></span><br><span class="line"><span class="attr">type</span>  = heatmap</span><br><span class="line"><span class="comment"># 设定数据文件路径。文件有 5 列</span></span><br><span class="line"><span class="comment"># chrID start   end     data    class</span></span><br><span class="line"><span class="comment"># hs1 0 1999999 113.0000 id=hs1</span></span><br><span class="line"><span class="comment"># hs1 0 1999999 40.0000 id=hs4</span></span><br><span class="line"><span class="comment"># hs1 0 1999999 20.0000 id=hs2</span></span><br><span class="line"><span class="comment"># hs1 0 1999999 7.0000 id=hs3</span></span><br><span class="line"><span class="attr">file</span>  = data/<span class="number">5</span>/segdup.hs1234.heatmap.txt</span><br><span class="line"><span class="comment"># 设定图形所处位置</span></span><br><span class="line"><span class="attr">r1</span>    = <span class="number">0.89</span>r</span><br><span class="line"><span class="attr">r0</span>    = <span class="number">0.88</span>r</span><br><span class="line"><span class="comment"># 设定热图的颜色。颜色为 hs3 ，以及相应带不同透明程度的 5 种颜色。</span></span><br><span class="line"><span class="attr">color</span> = hs1_a5,hs1_a4,hs1_a3,hs1_a2,hs1_a1,hs1</span><br><span class="line"><span class="comment"># 设定 scale_log_base 参数。计算颜色的方法如下：</span></span><br><span class="line"><span class="comment"># f = (value - min) / ( max - min )    热图中每个方块代表着一个值，并给予相应的颜色标示。一系列的值 [min,max] 对应一系列的颜色 c[n], i=0..N</span></span><br><span class="line"><span class="comment"># n = N * f ** (1/scale_log_base)</span></span><br><span class="line"><span class="comment"># 由上面两个公式计算出代表颜色的 n 值。</span></span><br><span class="line"><span class="comment"># 若 scale_log_base = 1，则数值与颜色的变化是线性的；</span></span><br><span class="line"><span class="comment"># 若 scale_log_base &gt; 1，则颜色向小方向靠近；</span></span><br><span class="line"><span class="comment"># 若 scale_log_base &lt; 1，则颜色向大方向靠近。</span></span><br><span class="line"><span class="attr">scale_log_base</span> = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 仅显示 id = hs1 的数据</span></span><br><span class="line">&lt;rule&gt;</span><br><span class="line"><span class="attr">condition</span> = var(id) ne <span class="string">"hs1"</span></span><br><span class="line"><span class="attr">show</span>      = no</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="attr">type</span>  = heatmap</span><br><span class="line"><span class="attr">file</span>  = data/<span class="number">5</span>/segdup.hs1234.heatmap.txt</span><br><span class="line"><span class="attr">r1</span>    = <span class="number">0.90</span>r</span><br><span class="line"><span class="attr">r0</span>    = <span class="number">0.89</span>r</span><br><span class="line"><span class="attr">color</span> = hs2_a5,hs2_a4,hs2_a3,hs2_a2,hs2_a1,hs2</span><br><span class="line"><span class="attr">scale_log_base</span> = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;rule&gt;</span><br><span class="line"><span class="attr">condition</span> = var(id) ne <span class="string">"hs2"</span></span><br><span class="line"><span class="attr">show</span>      = no</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="attr">type</span>  = heatmap</span><br><span class="line"><span class="attr">file</span>  = data/<span class="number">5</span>/segdup.hs1234.heatmap.txt</span><br><span class="line"><span class="attr">r1</span>    = <span class="number">0.91</span>r</span><br><span class="line"><span class="attr">r0</span>    = <span class="number">0.90</span>r</span><br><span class="line"><span class="attr">color</span> = hs3_a5,hs3_a4,hs3_a3,hs3_a2,hs3_a1,hs3</span><br><span class="line"><span class="attr">scale_log_base</span> = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;rule&gt;</span><br><span class="line"><span class="attr">condition</span> = var(id) ne <span class="string">"hs3"</span></span><br><span class="line"><span class="attr">show</span>      = no</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br><span class="line"></span><br><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="attr">type</span>  = heatmap</span><br><span class="line"><span class="attr">file</span>  = data/<span class="number">5</span>/segdup.hs1234.heatmap.txt</span><br><span class="line"><span class="attr">r1</span>    = <span class="number">0.92</span>r</span><br><span class="line"><span class="attr">r0</span>    = <span class="number">0.91</span>r</span><br><span class="line"><span class="attr">color</span> = hs4_a5,hs4_a4,hs4_a3,hs4_a2,hs4_a1,hs4</span><br><span class="line"><span class="attr">scale_log_base</span> = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line"></span><br><span class="line">&lt;rule&gt;</span><br><span class="line"><span class="attr">condition</span> = var(id) ne <span class="string">"hs4"</span></span><br><span class="line"><span class="attr">show</span>      = no</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line"></span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-6-plots-block-以文本形式显示数据"><a href="#2-6-plots-block-以文本形式显示数据" class="headerlink" title="2.6 plots block 以文本形式显示数据"></a>2.6 plots block 以文本形式显示数据</h5><p>若需要在圈图上显示一些基因的名称，此时需要以文本形式显示数据。将以下配置信息放入一个单独的配置文件中，给其命名 plots_text.conf 。<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;plot&gt;</span><br><span class="line"><span class="comment"># 表示出文字</span></span><br><span class="line">type  = text</span><br><span class="line"><span class="comment"># 数据文件路径</span></span><br><span class="line">file  = data/6/genes.labels.txt</span><br><span class="line"><span class="comment"># 显示在图形中的位置</span></span><br><span class="line">r1    = 0.8r</span><br><span class="line">r0    = 0.6r</span><br><span class="line"><span class="comment"># 标签的字体</span></span><br><span class="line">label_font = light</span><br><span class="line"><span class="comment"># 标签大小</span></span><br><span class="line">label_size = 12p</span><br><span class="line"><span class="comment"># 文字边缘的大小，设置较小则不同单词就可能会连接到一起了。</span></span><br><span class="line"><span class="comment"># padding  - text margin in angular direction</span></span><br><span class="line"><span class="comment"># rpadding - text margin in radial direction</span></span><br><span class="line">rpadding   = 5p</span><br><span class="line"><span class="comment"># 设置是否需要在 label 前加一条线，用来指出 lable 的位置。</span></span><br><span class="line">show_links     = no</span><br><span class="line">link_dims      = 0p,2p,5p,2p,2p</span><br><span class="line">link_thickness = 2p</span><br><span class="line">link_color     = black</span><br><span class="line"></span><br><span class="line">&lt;rules&gt;</span><br><span class="line">&lt;&lt;include exclude.hs1.rule&gt;&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置 rule ，对 label 中含有字母 a 或 b 的特异性显示</span></span><br><span class="line">&lt;rule&gt;</span><br><span class="line">condition  = var(value) =~ /a/i</span><br><span class="line">label_font = bold</span><br><span class="line">flow       = continue</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line">&lt;rule&gt;</span><br><span class="line">condition  = var(value) =~ /b/i</span><br><span class="line">color      = blue</span><br><span class="line">&lt;/rule&gt;</span><br><span class="line">&lt;/rules&gt;</span><br><span class="line"></span><br><span class="line">&lt;/plot&gt;</span><br></pre></td></tr></table></figure></p>
+<p>#####2.7 rules block 放置常用的规则配置<br>本例子中，很多track没有在1号染色体上展示，需要设置如下规则信息，将之写入到文件 exclude.hs1.rule 中<br><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;rule&gt;</span></span><br><span class="line"><span class="attribute">condition</span> = <span class="literal">on</span>(hs1)</span><br><span class="line"><span class="attribute">show</span>      = no</span><br><span class="line"><span class="section">&lt;/rule&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>#####2.8 主配置文件</p>
+<p>在主配置文件 circos.conf 中，包含以上所需要的配置文件信息，则可以画出所需要的track。此外，可以设置一些全局的设置。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># 指定染色体组型的文件，该文件分为</span></span><br><span class="line">karyotype = data<span class="meta-keyword">/karyotype/</span>karyotype.human.txt</span><br><span class="line"></span><br><span class="line"><span class="meta"># 设置长度单位，以下设置表示 1M 长度的序列代表为 1u。</span></span><br><span class="line">chromosomes_units = <span class="number">1000000</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 默认设置下是将 karyotype 文件中所有的染色体都展示出来。当然，也可能根据需要仅展示指定的 chromosomes, 使用如下的参数进行设置。</span></span><br><span class="line">chromosomes_display_default = no</span><br><span class="line"><span class="meta"># 以下参数设置指定的 chromosomes 用于展示到圈图中。<span class="comment">// 中是一个正则表达式，匹配的 chromosomes 用于展示到圈图中。其匹配的对象是 karyotype 文件中的第 3 列。也可以直接列出需要展示的 chromosomes， 例如：hs1;hs2;hs3;hs4 。</span></span></span><br><span class="line">chromosomes                 = /hs[<span class="number">1</span><span class="number">-4</span>]$/</span><br><span class="line"><span class="meta"># chromosomes                 = hs1;hs2;hs3;hs4</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># 以下设置各个 ideograms 的大小。其总长度为 1 ，hs1 的长度为 0.5， hs2，hs3 和 hs4 这 3 个 chromosomes 的总长度为 0.5，并且这 3 个 chromosomes 的长度是分布均匀的。注意前者的单位是 r， 后者使用了正则表达式对应多个 chromosomes， 其单位于是为 rn 。</span></span><br><span class="line">chromosomes_scale   = hs1=<span class="number">0.5</span>r,/hs[<span class="number">234</span>]/=<span class="number">0.5</span>rn</span><br><span class="line"></span><br><span class="line"><span class="meta"># 使 hs2， hs3 和 hs4 在圈图上的展示方向是反向的。</span></span><br><span class="line">chromosomes_reverse = /hs[<span class="number">234</span>]/</span><br><span class="line"></span><br><span class="line"><span class="meta"># 设置各个 ideograms 的颜色</span></span><br><span class="line">chromosomes_color   = hs1=red,hs2=orange,hs3=green,hs4=blue</span><br><span class="line"></span><br><span class="line"><span class="meta"># 默认下在 ideogram block 中统一设置了 ideogram 的位置，可以使用此参数调整指定 ideogram 的位置。</span></span><br><span class="line">chromosomes_radius  = hs4:<span class="number">0.9</span>r</span><br><span class="line"><span class="meta"># chromosomes_radius  = hs2:0.9r;hs3:0.8r;hs4:0.7r</span></span><br><span class="line"></span><br><span class="line"><span class="meta"># karyotype 文件最后一列指定了各个 chromosomes 的颜色，而使用 chromosomes_color 参数也能修改颜色。当然，使用如下方式进行颜色的修改，则更加直观。以下方式是对颜色重新进行定义。chr1，chr2，chr3 和 chr4 对应着 karyotype 文件最后一列的值，代表着颜色的类型。此处使用 color block 来对其进行重新定义。注意重新定义的时候需要加符号 * </span></span><br><span class="line"><span class="params">&lt;colors&gt;</span></span><br><span class="line">chr1* = red</span><br><span class="line">chr2* = orange</span><br><span class="line">chr3* = green</span><br><span class="line">chr4* = blue</span><br><span class="line"><span class="params">&lt;/colors&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">### 绘制 plot 图</span></span><br><span class="line"><span class="params">&lt;plots&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;&lt;include plots_histogram.conf&gt;</span>&gt;</span><br><span class="line"><span class="params">&lt;&lt;include plots_heatmap.conf&gt;</span>&gt;</span><br><span class="line"><span class="params">&lt;&lt;include plots_text.conf&gt;</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="params">&lt;/plots&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="params">&lt;&lt;include ideogram.conf&gt;</span>&gt;</span><br><span class="line"><span class="params">&lt;&lt;include ticks.conf&gt;</span>&gt;</span><br><span class="line"><span class="params">&lt;&lt;include links.conf&gt;</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">################################################################</span></span><br><span class="line"><span class="meta"># 插入必须的并不常修改的标准参数</span></span><br><span class="line"><span class="params">&lt;image&gt;</span></span><br><span class="line"><span class="params">&lt;&lt;include etc/image.conf&gt;</span>&gt;</span><br><span class="line"><span class="params">&lt;/image&gt;</span></span><br><span class="line"><span class="params">&lt;&lt;include etc/colors_fonts_patterns.conf&gt;</span>&gt;</span><br><span class="line"><span class="params">&lt;&lt;include etc/housekeeping.conf&gt;</span>&gt;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>circos配置的单位概念</strong><br>一共有4种单位：p, r, u, b<br>  p表示像素，1p表示1像素<br>  r表示相对大小，0.95r表示95% ring 大小。<br>    u表示相对chromosomes_unit的长度，如果chromosomes_unit = 1000，则1u就是千分之一的染色体长度。<br>    b表示碱基，如果染色体长1M，那么1b就是百万分之一的长度。</p>
+</blockquote>
+<p>###三、circos运行命令<br>对配置文件设置完毕后，使用命令进行画图<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./bin/circos -<span class="keyword">conf</span> circos.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure></p>
+<p>###四、结果示例<br>结果如下：<br><img src="http://www.chenlianfu.com/data/pictures/circos.png" alt="此处输入图片的描述"><br>此图来自陈连福：<a href="http://www.chenlianfu.com/?p=2342" target="_blank" rel="external">《Circos的安装和简单使用》</a><br>这里也展示下，我第一次绘图，主要是统计分析了SNP，InDel在染色体上的分布情况：<br><img src="http://7xubqr.com1.z0.glb.clouddn.com/circos.jpg" alt="此处输入图片的描述"><br>其中的一些文字名和右下角的图色块显示说明为PS添加。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/circos/" rel="tag">#circos</a>
+          
+            <a href="/tags/software/" rel="tag">#software</a>
+          
+            <a href="/tags/bioinformatics/" rel="tag">#bioinformatics</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/14/Diary-2016-06-14/" rel="next" title="Diary-2016-06-14">
+                <i class="fa fa-chevron-left"></i> Diary-2016-06-14
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/23/Circos教程(二)基础使用/"
+           data-title="Circos教程(二):基础使用" data-url="http://starsyi.github.io/2016/06/23/Circos教程(二)基础使用/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xubqr.com1.z0.glb.clouddn.com/avatar.png"
+               alt="starsyi" />
+          <p class="site-author-name" itemprop="name">starsyi</p>
+          <p class="site-description motion-element" itemprop="description">自古求真皆寂寞，唯挑心灯伴夜霭</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/starsyi" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/2436657131" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:yxx285223595@163.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-数据文件"><span class="nav-number">1.</span> <span class="nav-text">1. 数据文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置文件"><span class="nav-number">2.</span> <span class="nav-text">2. 配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-6-plots-block-以文本形式显示数据"><span class="nav-number">2.1.</span> <span class="nav-text">2.6 plots block 以文本形式显示数据</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.05 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">starsyi
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;
+  <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cspan id='cnzz_stat_icon_1259228303'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1259228303' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/sitemap.xml">Google网站地图</a></span>
+  &nbsp;&nbsp;|&nbsp;&nbsp;<span><a href="/baidusitemap.xml">百度网站地图</a></span>
+
+  </span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+&nbsp;&nbsp;|&nbsp;&nbsp;本页点击 <span id="busuanzi_value_page_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;本站总点击 <span id="busuanzi_value_site_pv"></span> 次
+&nbsp;&nbsp;|&nbsp;&nbsp;您是第 <span id="busuanzi_value_site_uv"></span> 位访客
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"starsyi"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '/js/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+</body>
+</html>
